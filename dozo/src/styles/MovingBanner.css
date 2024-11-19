@@ -1,0 +1,28 @@
+    /* src/styles/MovingBanner.css */
+    .moving-banner {
+        background-color: #F0A15E; /* Fondo naranja claro */
+        padding: 5px; /* Reducimos el padding */
+        overflow: hidden; /* Esconde el texto que está fuera del área visible */
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 100%;
+        height: 30px; /* Ajustamos la altura */
+    }
+
+
+    
+    .moving-text {
+        white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+        display: inline-block;
+        animation: marquee 100s linear infinite; /* Más lento */
+    }
+    
+    @keyframes marquee {
+        0% {
+        transform: translateX(0); /* Comienza en la posición original */
+        }
+        100% {
+        transform: translateX(-100%); /* Mueve el texto hacia la izquierda, desapareciendo al final */
+        }
+    }

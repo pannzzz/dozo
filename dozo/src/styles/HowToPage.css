@@ -1,0 +1,90 @@
+.breadcrumb-home3 {
+    color: #3a3a3a;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: -1000px;
+}
+
+/* Estilos para la página How To */
+.how-to-page {
+    padding: 50px;
+    background-color: #f7f5f5;
+}
+
+.how-to-header {
+    margin-bottom: 30px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.how-to-header h2 {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.how-to-header h1 {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.how-to-header h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin-top: 10px;
+}
+
+.how-to-header p {
+    font-size: 16px;
+    color: #333;
+    max-width: 600px;
+    margin: 15px auto 0;
+}
+
+.highlight-text {
+    background-color: yellow;
+    padding: 2px 4px;
+}
+
+.how-to-steps {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.step {
+    border: 1px solid #333;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    max-width: 250px;
+    background-color: #fff;
+}
+
+.step h4 {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.step p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.step img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.footer-text {
+    font-size: 14px;
+    color: #333;
+    margin-top: 40px;
+}

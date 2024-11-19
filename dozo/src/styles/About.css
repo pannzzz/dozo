@@ -1,0 +1,222 @@
+/* Navegación de la página */
+.breadcrumb-home1 {
+    color: #3a3a3a;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    color: #3a3a3a;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    margin-left: -1000px;
+    font-family: Arial, sans-serif;
+}
+
+
+
+/* Contenedor principal de la página */
+.about-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 90px;
+}
+
+.about-container h3 {
+    font-size: 22px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 30px;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* Contenido principal de las secciones */
+.about-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 50px;
+    gap: 40px;
+    flex-wrap: wrap; /* Hace que el contenido se ajuste en pantallas pequeñas */
+}
+/* Contenedor de icono y SVG */
+.about-icon {
+    margin: 0 auto 20px auto;
+}
+
+.about-new-svg {
+    display: block;
+    width: 600px;
+    height: auto;
+    transform: translateX(553px);
+}
+
+/* Imagen en las secciones */
+.about-image {
+    width: 100%;
+    max-width: 480px;
+    margin-top: 30px;
+    margin-left: 120px;
+}
+
+/* Texto en las secciones */
+.about-text {
+    max-width: 550px;
+    text-align: left;
+}
+
+.about-text h2 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 2.0;
+    letter-spacing: 0.045em;
+    margin-top: 20px;
+}
+
+.about-text p {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 2.3;
+    letter-spacing: 0.055em;
+    margin-top: 30px;
+}
+
+/* Subrayado amarillo para destacar palabras */
+.about-text p span.highlight {
+    background-color: #fef08a;
+    font-weight: bold;
+}
+
+/* Estilos adicionales para la segunda sección */
+.about-content.second-section {
+    flex-direction: row;
+    align-items: center;
+}
+
+.about-text.second-section {
+    margin-top: 20px;
+    margin-left: 96px;
+}
+
+.about-images.second-section{
+    margin-top: 10px;
+    margin-left: -20px;
+}
+
+/* Estilos adicionales para la tercera sección */
+.about-content.third-section {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.about-text p.highlight-text {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 1024px) {
+    .breadcrumb {
+        margin-left: 20px;
+        font-size: 12px;
+    }
+
+    .about-container h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .about-new-svg {
+        display: block;
+        width: 450px;
+        height: auto;
+        transform: translateX(420px);
+    }
+
+    .about-text h2 {
+        font-size: 22px;
+    }
+
+    .about-text p {
+        font-size: 16px;
+    }
+
+
+
+    .about-image {
+        width: 100%;
+        max-width: 720px;
+        margin-top: 60px;
+        margin-left: -20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .about-new-svg {
+        display: block;
+        width: 450px;
+        height: auto;
+        transform: translateX(290px);
+    }
+
+    .about-text h2 {
+        font-size: 20px;
+    }
+
+    .about-text p {
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .about-image {
+        width: 80%;
+    }
+
+    .about-images.second-section, .about-images.third-section {
+        margin: 0 auto;
+    }
+
+    .about-text.second-section, .about-text.third-section {
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .breadcrumb {
+        font-size: 10px;
+        margin-left: 10px;
+    }
+
+    .about-container h3 {
+        font-size: 18px;
+    }
+
+    .about-new-svg {
+        display: block;
+        width: 450px;
+        height: auto;
+        transform: translateX(140px);
+    }
+
+    .about-text h2 {
+        font-size: 18px;
+    }
+
+    .about-text p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .about-image {
+        width: 100%;
+    }
+}

@@ -1,0 +1,253 @@
+/* Contenedor principal del modal */
+.add-js-searchDetailModal__box {
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    position: fixed;
+    top: var(--top-offset);
+    left: 0;
+    z-index: 110;
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    pointer-events: all;
+    background-color: #fff;
+    right: 15px;
+    translate: 0px;
+    opacity: 1;
+    display: block;
+}
+
+.add-js-searchDetailModal__inner {
+    font-family: inherit;
+    line-height: inherit;
+    pointer-events: all;
+    border: 0 solid;
+    border-width: 0;
+    box-sizing: border-box;
+    max-width: 820px;
+    padding: 30px 10px 40px;
+    margin: 0 auto;
+}
+
+.filtro-close {
+    pointer-events: all;
+    border: 0 solid;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 20px;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.add-searchDetail .add-js-searchDetailAccordion {
+    font-family: inherit;
+    line-height: inherit;
+    pointer-events: all;
+    box-sizing: border-box;
+}
+
+.add-searchDetail__themeSelected {
+    margin-bottom: 18px;
+}
+
+.num {
+    display: inline-block;
+    font-family: var(--font-en);
+    font-size: 42px;
+    line-height: 40px;
+}
+
+.texto {
+    display: inline-block;
+    font-size: var(--text-base);
+    font-weight: 700;
+}
+
+.add-searchDetail__queries {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 40px;
+    padding: 0 5px;
+}
+
+.add-searchDetail__group {
+    max-width: 342px;
+}
+
+.add-searchDetail__groupTitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.add-searchDetail__groupTitle img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    vertical-align: bottom;
+}
+
+.add-searchDetail__groupTitle span {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.add-searchDetail__groupBody {
+    padding: 10px 0 20px;
+}
+
+/* Estilos de la barra de precios */
+.add-searchPriceSelect {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 10px;
+    padding: 20px 0;
+}
+
+.add-searchPriceSelect ul {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+.add-searchPriceSelect ul::before {
+    content: '';
+    position: absolute;
+    top: 20%; /* Ajustar la posición de la línea */
+    left: 10%; /* Reducir el ancho de la línea desde la izquierda */
+    right: 13%; /* Reducir el ancho de la línea desde la derecha */
+    height: 2px;
+    background-color: #d3d3d3; /* Color de la línea */
+    z-index: 0;
+}
+
+
+/* Botones de precio */
+.add-searchPriceSelect__button {
+    background: transparent;
+    border: none;
+    font-size: 12px;
+    color: #666;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Círculo inactivo */
+.add-searchPriceSelect__button .add-icon {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #d3d3d3; /* Color del punto inactivo */
+    margin-bottom: 5px;
+    border: 1px solid transparent;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Hover */
+.add-searchPriceSelect__button:hover .add-icon {
+    background-color: #555; /* Color al pasar el mouse */
+    border-color: #000; /* Bordes en hover */
+}
+
+/* Estado activo (seleccionado) */
+.add-searchPriceSelect__button.active .add-icon {
+    background-color: #D89B67; /* Color del punto seleccionado */
+    border-color: #000;
+}
+
+.add-searchPriceSelect__button.active .add-text {
+    color: #000; /* Color del texto seleccionado */
+    font-weight: bold;
+}
+
+/* Estilo del texto */
+.add-text {
+    font-size: 10px;
+    color: #BAB4B4; /* Color del texto inactivo */
+    font-weight: normal;
+    transition: color 0.3s;
+}
+
+.add-tagList {
+    font-family: inherit;
+    line-height: inherit;
+    pointer-events: all;
+    border: 0 solid;
+    border-color: rgba(242,242,239,var(--tw-border-opacity));
+    box-sizing: border-box;
+}
+
+.add-tagList ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 13px;
+}
+
+.add-tagItem {
+    box-sizing: border-box;
+    color: inherit;
+    text-decoration: none;
+    border-left: 8px solid #000 !important;
+    display: inline-flex;
+    justify-content: center;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.045em;
+    background-color: #fff;
+    border: 1px solid #000;
+    transition: rotate 0.3s ease;
+    min-width: 147px;
+    padding: 8px 15px 8px 12px;
+    font-size: 11px;
+}
+
+.add-tagItem:hover {
+    background-color: #D89B67;
+}
+
+.botonn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 342px;
+    margin-top: 30px;
+}
+
+.boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-weight: 500;
+    color: #fff;
+    background-color: #000;
+    max-width: 290px;
+    height: 52px;
+    font-size: 13px;
+    letter-spacing: 0.045em;
+    border-radius: 50px;
+    cursor: pointer;
+}

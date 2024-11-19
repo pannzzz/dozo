@@ -1,0 +1,97 @@
+.category-section-container {
+    width: 1350px;
+    height: 600px; /* Ajusta la altura automáticamente */
+    margin: 0 auto; /* Elimina el espacio adicional en la parte superior e inferior */
+    text-align: center;
+    background-color: #ffa44f;
+    padding-top: 50px; /* Agrega un padding superior si es necesario */
+}
+
+.category-header {
+    background-color: #ffa44f;
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.category-header h3 {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0;
+    font-family: 'Noto Sans JP', sans-serif;
+    position: relative;
+    margin-top: -130px;
+}
+
+.category-header h3::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 2px;
+    background-color: #333;
+    margin: 8px auto 0 auto;
+}
+
+.category-header p {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: -10px;
+}
+
+/* SVG de título "Category" */
+.category-icon {
+    margin: 0 auto 20px auto;
+}
+
+.category-new-svg {
+    display: block;
+    width: 600px;
+    height: auto;
+    transform: translateX(510px);
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 70px;
+    justify-items: center;
+    align-items: center;
+    margin-right: 500px;
+    transform: translateX(240px);
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-top: -40px;
+}
+
+.category-item img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #333;
+    transition: transform 0.6s ease;
+}
+
+.category-item img:hover {
+    transform: scale(1.1);
+}
+
+.category-item p {
+    display: flex;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+    margin: 0 20px;
+    margin-top: 10px;
+}

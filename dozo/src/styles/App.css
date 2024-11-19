@@ -1,0 +1,10 @@
+/* src/styles/App.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.App {
+  margin-top: 50px; /* Añadir margen superior para evitar que el contenido quede oculto por el banner */
+}

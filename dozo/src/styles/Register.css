@@ -1,0 +1,47 @@
+/* Breadcrumb */
+.breadcrumb {
+    font-size: 14px;
+    color: #3a3a3a;
+    margin-top: 90px;
+    margin-bottom: 20px;
+    margin-left: 40px;
+    font-family: Arial, sans-serif;
+}
+
+.breadcrumb-home {
+    color: #3a3a3a;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: -600px;
+}
+
+/* Contenedor principal de la página de registro */
+.register-container {
+    max-width: 900px;
+    margin: 60px auto 0;
+    padding: 40px 20px;
+    text-align: center;
+    align-items: center;
+    font-family: 'Work Sans', sans-serif;
+}
+
+/* Título de registro */
+.register-container h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Párrafo de bienvenida */
+.register-container p {
+    font-size: 16px; /* Aumenta el tamaño de fuente */
+    color: #000000;
+    line-height: 1.8; /* Ajusta el espaciado para mejorar la legibilidad */
+    white-space: nowrap; /* Evita el ajuste de línea */
+    max-width: 50%; /* Permite que el texto ocupe todo el ancho disponible */
+    margin-left: -40px;
+    
+}
+

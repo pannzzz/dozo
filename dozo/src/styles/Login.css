@@ -1,0 +1,191 @@
+/* Breadcrumb */
+.breadcrumb {
+    font-size: 14px;
+    color: #3a3a3a;
+    margin-top: 90px;
+    margin-bottom: 20px;
+    margin-left: 40px;
+    font-family: Arial, sans-serif;
+}
+
+.breadcrumb-home {
+    color: #3a3a3a;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: -600px;
+}
+
+/* Contenedor principal del login */
+.login-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Escalar el contenido de "Iniciar sesión" y "Para quienes visitan por primera vez" */
+.scaled-content {
+    transform: scale(1.2); /* Aumenta el tamaño al 120% */
+    transform-origin: top center;
+    display: flex;
+    gap: 40px;
+    max-width: 900px;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 30px;
+    border-radius: 10px; /* Bordes redondeados */
+    margin-top: 40px;
+}
+
+/* Mensaje de error */
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Mostrar mensaje de error cuando hay un error */
+.error-message.visible {
+    visibility: visible;
+}
+
+/* Login Box y New User Box */
+.login-box, .new-user-box {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Títulos */
+.login-box h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-align: left;
+    font-weight: bold;
+}
+
+.new-user-box h3 {
+    font-size: 20px;
+    line-height: 2;
+    margin-bottom: 25px;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-align: left;
+    font-weight: bold;
+
+}
+
+/* Formulario de inicio de sesión */
+.login-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-box input {
+    font-size: 16px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Botón de inicio de sesión */
+.login-button {
+    font-size: 16px;
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.login-button:hover {
+    background-color: #ffffff; /* Mantiene el color negro en el hover */
+    color: #000;
+    border: 1px solid black;
+}
+
+/* Enlace de "¿Olvidaste tu contraseña?" */
+.forgot-password {
+    font-size: 12px;
+    color: #333;
+    margin-top: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.forgot-password:hover {
+    color: #333; /* Mantiene el color negro en el hover */
+}
+
+/* Caja de nuevos usuarios */
+.new-user-box h3 {
+    font-size: 20px;
+    color: #3a3a3a;
+    margin-bottom: 10px;
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 30px;
+}
+
+.new-user-box p {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-align: left;
+    letter-spacing: 1px;
+    line-height: 30px;
+}
+
+/* Botón de registro de nuevos miembros */
+.new-user-button {
+    font-size: 16px;
+    background-color: transparent;
+    color: #3a3a3a;
+    padding: 10px;
+    border: 2px solid #3a3a3a;
+    border-radius: 30px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-left: -35px;
+}
+
+.new-user-button:hover {
+    background-color: #3a3a3a;
+    color: #fff; /* Mantiene el color blanco en el hover */
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .scaled-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .separator {
+        display: none;
+    }
+
+    .login-box, .new-user-box {
+        width: 100%;
+        text-align: center;
+    }
+
+    .new-user-button {
+        width: 100%;
+    }
+}

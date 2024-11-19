@@ -1,0 +1,226 @@
+.how-section-container {
+    width: 90%;
+    margin: 80px auto;
+    text-align: center;
+    padding-bottom: 50px;
+    background-color: transparent;
+}
+
+/* Encabezado superior con subrayado */
+.how-section-heading {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.how-section-heading h3 {
+    font-family: 'Noto Sans JP', ui-sans-serif, system-ui, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: -110px 0 0;
+}
+
+.underline {
+    width: 50px;
+    height: 2px;
+    background-color: black;
+    margin: 5px auto 20px auto;
+}
+
+/* SVG de título "What's New?" */
+.how-section-title-svg {
+    width: 700px;
+    margin: 0 auto 20px auto;
+}
+
+.whats-new-svg {
+    display: block;
+    margin: 0 auto;
+    margin-left: 280px;
+    margin-top: -2px;
+    width: 700px;
+    transform: translateX(70px);
+}
+
+.jump-animation {
+    animation: jump 0.5s ease-out forwards;
+}
+
+@keyframes jump {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.how-section-subtitle {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: -10px;
+}
+
+.how-section-description {
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 30px;
+    line-height: 0.8;
+    margin-top: 60px;
+}
+
+.how-section-description span {
+    display: block;
+}
+
+.how-section-slider {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 60px;
+}
+
+.how-section-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    flex: 1;
+}
+
+.how-grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
+    padding: 15px;
+    opacity: 1;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+}
+
+/* Animaciones de deslizamiento */
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.how-grid-item.slide-in {
+    animation-name: slideIn;
+}
+
+.how-grid-item.slide-out {
+    animation-name: slideOut;
+}
+
+/* Ajusta el contenedor de la imagen para mantener la imagen en un marco más ancho y alto */
+.how-image-container {
+    width: 250px;
+    height: 230px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+}
+
+.image-container:hover {
+    transform: rotate(-7deg);
+}
+
+/* Ajusta la imagen para que llene el contenedor manteniendo la escala deseada */
+.how-grid-item img {
+    width: 250px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0;
+    margin-left: 0;
+}
+
+/* Navegación */
+.add-js-articleSlider__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.add-js-articleSlider__navArrow {
+    background-color: transparent;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: black;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add-js-articleSlider__navArrow:hover {
+    background-color: black;
+    color: white;
+}
+
+.add-js-articleSlider__navNums {
+    display: flex;
+    align-items: center;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+    margin: 0 20px;
+}
+
+.add-js-articleSlider__navNums span[data-border] {
+    width: 50px;
+    height: 1px;
+    background-color: #333;
+    margin: 0 10px;
+}
+
+/* Estilo del botón "Cómo usar el dōzo" */
+.how-main-button {
+    margin-top: 20px;
+    background-color: black;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.how-main-button:hover {
+    background-color: #333;
+}

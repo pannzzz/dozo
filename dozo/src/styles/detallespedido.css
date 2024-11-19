@@ -1,0 +1,140 @@
+/* Estilos generales para la página del pedido */
+.pedido-page {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 120px;
+}
+
+.pedido-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.pedido-subtitle {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+/* Estilos para la lista de productos */
+.pedido-productos {
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+.pedido-producto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.pedido-producto:last-child {
+    border-bottom: none;
+}
+
+.pedido-producto-imagen {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.pedido-producto-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.producto-titulo {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.producto-precio {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Estilos para cantidad */
+.pedido-producto-cantidad {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cantidad-boton {
+    background-color: #f0f0f0;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cantidad-boton:hover {
+    background-color: #ddd;
+}
+
+.cantidad-texto {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Estilos para el subtotal */
+.pedido-total {
+    text-align: right;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.total-texto {
+    font-size: 14px;
+    color: #888;
+    margin: 5px 0;
+}
+
+.total-precio {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.total-nota {
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.breadcrumb-containerdetallespedidos {
+    font-size: 14px;
+    color: #666;
+    margin-top: 100px;
+    margin-left: 100px;
+}
+
+.breadcrumb-containerdetallespedidos a {
+    color: #000000;
+    text-decoration: none;
+}

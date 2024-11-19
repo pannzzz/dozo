@@ -1,0 +1,310 @@
+/* Estilos generales para la página del carrito */
+.carrito-page {
+    max-width: 800px;
+    margin: 80px auto 20px; /* Añadir margen superior para separar del Navbar */
+    padding: 20px;
+}
+
+
+.add-sectionGeneral {
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    display: block;
+    min-height: 50px;
+    background-color: #fff;
+    padding: 120px 0px 10px;
+}
+
+.add-l-inner {
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: calc(var(--inner-width, 1234px) + 20px);
+    padding-inline: 10px;
+    margin: 0 auto;
+}
+
+.add-sectionTitle {
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    font-weight: inherit;
+    line-height: inherit;
+    margin: 0;
+    font-size: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -86px;
+    margin-bottom: 40px;
+}
+
+.add-sectionTitle__text-02 {
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    margin-top: 16px;
+    font-family: var(--font-en);
+    font-size: 38px;
+}
+
+.add-sectionTitle__text-03 {
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    margin-top: 20px;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+
+.carrito-page h1 {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.carrito-page p {
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Contenedor de productos en el carrito */
+.carrito-productos {
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 20px 0;
+}
+
+/* Estilo individual de cada producto en el carrito */
+.carrito-producto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+.producto-imagen {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.producto-detalle {
+    flex: 1;
+}
+
+.producto-detalle h3 {
+    border-style: solid;
+    border-width: 0;
+    word-wrap: break-word;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+    min-width: calc(100% - 35px);
+    width: auto;
+}
+
+.producto-detalle p {
+    --font-stack-header: Helvetica, 'Helvetica Neue', Arial, 'Lucida Grande', sans-serif;
+    text-align: left;
+    font-family: var(--font-stack-header);
+    font-style: var(--font-style-header);
+    font-size: 21px;
+    margin-top: 60px;
+}
+
+.nombre {
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    width: 110%;
+}
+
+.producto-eliminar {
+    box-sizing: border-box;
+    touch-action: manipulation;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    transition: none;
+    border: 0px;
+    background: transparent url(//cdn.shopify.com/s/files/1/0597/9281/8349/t/5/assets/ic_close.svg) no-repeat 50%;
+    background-size: contain;
+    color: transparent;
+    font-size: 0;
+    height: 25px;
+    text-indent: -9999px;
+    width: 25px;
+}
+
+.menos {
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    touch-action: manipulation;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid currentColor;
+    cursor: pointer;
+    transition: none;
+    color: transparent;
+    font-size: 0;
+    height: 22px;
+    text-indent: -9999px;
+    width: 22px;
+    background: transparent url(//cdn.shopify.com/s/files/1/0597/9281/8349/t/5/assets/ic_minus.svg) no-repeat 50%;
+    background-size: contain;
+}
+
+.mas {
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    touch-action: manipulation;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid currentColor;
+    cursor: pointer;
+    transition: none;
+    color: transparent;
+    font-size: 0;
+    height: 22px;
+    text-indent: -9999px;
+    width: 22px;
+    background: transparent url(//cdn.shopify.com/s/files/1/0597/9281/8349/t/5/assets/ic_plus.svg) no-repeat 50%;
+    background-size: contain;
+}
+
+.producto-cantidad {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.producto-cantidad span {
+    font-size: 1.1em;
+}
+
+/* Estilos para el subtotal del carrito */
+.carrito-subtotal {
+    text-align: right;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+.carrito-subtotal p {
+    font-size: 0.9em;
+    color: #888;
+    margin: 5px 0;
+}
+
+.carrito-subtotal h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+
+
+
+.carrito-terminos {
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.terminos-titulo {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: left;
+}
+
+.terminos-contenedor {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    max-height: 150px;
+    overflow-y: auto;
+    text-align: left;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.terminos-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.terminos-info-envio {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.proceder-pago {
+    box-sizing: border-box;
+    touch-action: manipulation;
+    font: inherit;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    vertical-align: middle;
+    overflow: visible;
+    text-transform: none;
+    -webkit-font-smoothing: inherit;
+    -webkit-text-size-adjust: inherit;
+    margin-bottom: 0;
+    min-height: 44px;
+    appearance: none;
+    background: #000;
+    border: 0;
+    border-radius: 60px;
+    color: #fff;
+    display: inline-block;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+    font-size: 15px;
+    transition: none;
+    background-color: #ccc;
+    cursor: default;
+    height: 55px;
+    line-height: 55px;
+    max-width: 300px;
+    box-shadow: none;
+}
+
+.proceder-pago.activo {
+    background-color: #000000;
+    cursor: pointer;
+}
+
+.proceder-pago:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+

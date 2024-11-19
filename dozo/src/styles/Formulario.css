@@ -1,0 +1,174 @@
+/* Contenedor principal del formulario */
+.box_st {
+    border: 0 solid;
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 1.5;
+    margin: 0 0 70px;
+}
+
+.font-normal {
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    line-height: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0 0 15px;
+}
+.con_form {
+    tab-size: 4;
+    border: 0 solid;
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: 940px;
+    padding: 100px 0 195px;
+}
+
+.box_form {
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    margin: 0 auto 130px;
+    max-width: 690px;
+}
+
+/* Encabezado del formulario */
+.box_st {
+    margin-bottom: 20px;
+}
+
+.box_st h2 {
+    font-size: 18px;
+    color: #333232;
+    margin-bottom: 10px;
+}
+
+.box_st p {
+    font-size: 13px;
+    color: #606060;
+}
+
+/* Lista de campos del formulario */
+.items {
+    list-style: none;
+    padding: 0;
+}
+
+.item1, .item2, .item3, .item4, .item5, .item6, .item-password {
+    margin-bottom: 15px;
+}
+
+/* Etiquetas de los campos */
+.caption {
+    font-weight: bold;
+    font-size: 14px;
+    color: #3a3a3a;
+    margin-bottom: 5px;
+}
+
+/* Contenedor de los controles */
+.controls {
+    margin-top: 5px;
+}
+
+/* Estilos para los campos de entrada */
+.frm {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.frm:focus {
+    border-color: #53C197; /* Cambia este color si es necesario */
+    outline: none;
+}
+
+/* Mensaje de error */
+.error-message {
+    color: #e75f5f;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Contenedor para el botón de confirmación y acciones */
+.box_action {
+    margin-top: 20px;
+}
+
+.confirm {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.confirm input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.confirm label {
+    font-size: 13px;
+    color: #3a3a3a;
+}
+
+/* Botones */
+.btns {
+    text-align: center;
+}
+
+/* Estilos para el botón de envío */
+/* Estilos para el botón de envío */
+.btn_submit {
+    padding: 15px 40px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #000000;
+    border: none;
+    border-radius: 30px; /* Bordes redondeados para el efecto ovalado */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    display: inline-block;
+}
+
+.btn_submit:hover {
+    background-color: #333333; /* Cambio de color al pasar el mouse */
+}
+
+
+/* Estilos para notas e instrucciones */
+.note {
+    font-size: 12px;
+    color: #606060;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Alineación de texto y estilo de fuente */
+.text-center {
+    text-align: center;
+}
+
+.font-normal {
+    font-weight: normal;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .con_form {
+        padding: 15px;
+    }
+
+    .btn_submit {
+        width: 100%;
+    }
+}

@@ -1,0 +1,219 @@
+.new-section-container {
+    width: 90%;
+    margin: 50px auto;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+/* Encabezado superior con subrayado */
+.new-section-heading {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.new-section-heading h3 {
+    font-family: 'Noto Sans JP', ui-sans-serif, system-ui, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.underline {
+    width: 50px;
+    height: 2px;
+    background-color: black;
+    margin: 5px auto 20px auto;
+}
+
+/* SVG de título "What's New?" */
+.new-section-title-svg {
+    width: 300px;
+    margin: 0 auto 20px auto;
+}
+
+.whats-new-svg {
+    display: block;
+    margin: 0 auto;
+    width: 700px;
+    transform: translateX(70px);
+}
+
+.jump-animation {
+    animation: jump 0.5s ease-out forwards;
+}
+
+@keyframes jump {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.new-section-subtitle {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.new-section-slider {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.new-section-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    flex: 1;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
+    padding: 15px;
+    opacity: 1;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+}
+
+/* Animaciones de deslizamiento */
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.grid-item.slide-in {
+    animation-name: slideIn;
+}
+
+.grid-item.slide-out {
+    animation-name: slideOut;
+}
+
+/* Asegúrate de que el contenedor de la imagen y la imagen tengan el mismo tamaño */
+.image-container {
+    margin-bottom: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+}
+
+.image-container:hover {
+    transform: rotate(-7deg);
+}
+
+/* Asegúrate de que la imagen llene el contenedor */
+.grid-item img {
+    border: 1px solid black;
+    width: 200px; /* La imagen ocupa el 100% del contenedor */
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0;
+    margin-left: 50px;
+}
+
+.grid-item p {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: right;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.image-date {
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    writing-mode: vertical-rl;
+    font-size: 14px;
+    color: #333;
+    margin-left: 10px;
+    font-family: Helvetica, 'Helvetica Neue', Arial, 'Lucida Grande', sans-serif;
+    font-weight: bold;
+}
+
+.vertical-line {
+    position: absolute;
+    left: 300px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #333;
+}
+
+/* Navegación */
+.add-js-articleSlider__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.add-js-articleSlider__navArrow {
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: black;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add-js-articleSlider__navArrow:hover {
+    background-color: black;
+    color: white;
+}
+
+.add-js-articleSlider__navNums {
+    display: flex;
+    align-items: center;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+    margin: 0 20px;
+}
+
+.add-js-articleSlider__navNums span[data-border] {
+    width: 50px;
+    height: 1px;
+    background-color: #333;
+    margin: 0 10px;
+}

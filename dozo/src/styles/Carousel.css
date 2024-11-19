@@ -1,0 +1,89 @@
+/* Fondo verde de la sección del carrusel */
+.carousel-background {
+    display: flex;
+    justify-content: center;
+    background-color: #5ec0a1; /* Color verde igual al navbar */
+    width: 100%;
+    padding: 1px; /* El fondo termina 20px después del botón */
+}
+
+/* Estilos del contenedor del carrusel */
+.carousel-container {
+    width: 90%;
+    margin-top: 136px;
+    margin-right: -100px;
+    margin-bottom: 20px;
+    margin-left: -100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilos del carrusel */
+.carousel {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-image {
+    width: 100%;
+    height: auto;
+}
+
+/* Contenedor del texto "Próximo" y el ícono de flecha */
+.next-container {
+    position: absolute;
+    right: -50px; /* Lo movemos hacia fuera del contenedor */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1; /* Asegura que el botón esté por encima del contenido */
+}
+
+/* Estilo para el texto "Próximo" */
+.next-text {
+    writing-mode: vertical-rl; /* Para que el texto sea vertical */
+    transform: rotate(180deg); /* Gira el texto para hacerlo legible */
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 10px;
+}
+
+/* Estilo para el ícono de flecha */
+.next-icon {
+    font-size: 30px;
+    color: black;
+}
+
+/* Hover sobre el contenedor de "Próximo" */
+.next-container:hover .next-text,
+.next-container:hover .next-icon {
+    color: #333; /* Cambia el color al pasar el cursor */
+}
+
+/* Botón en la parte inferior */
+.carousel-bottom {
+    margin-top: 30px;
+}
+
+.carousel-bottom-button {
+    background-color: #000;
+    font-family: 'Noto Sans JP', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    color: #fff;
+    border: none;
+    padding: 8px 40px; /* Hacemos el botón más largo */
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 25px;
+}
+
+.carousel-bottom-button:hover {
+    background-color: #333;
+}
