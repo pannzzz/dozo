@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rbl+!03h2&$1x0t6s+=o0yh+w=aghg7i6@yd3szlh&th)l$*_6'
+SECRET_KEY = 'django-insecure-dsnhfo2202q!v=h8)*q346-3)8uu2jo5+8ck))h_ee4dm4(b6n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,9 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Dozo',
-    'corsheaders',
-    'rest_framework',
+    'Dozo'
 ]
 
 MIDDLEWARE = [
@@ -51,25 +48,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
 ]
-
-CORS_ALLOW_ALL_ORIGINS =True
-
-CORS_ALLOW_CREDENTIALS =True
-
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000'
-]
-
-
-
-
 
 ROOT_URLCONF = 'dozoback.urls'
-
-AUTH_USER_MODEL = 'Dozo.CustomUser'
-
 
 TEMPLATES = [
     {
@@ -99,11 +80,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',  # Autenticación predeterminada
-]
 
 
 # Password validation
@@ -141,10 +117,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
-MEDIA_URL = '/media/'  # URL para acceder a los archivos subidos
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directorio donde se almacenan los archivos
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
