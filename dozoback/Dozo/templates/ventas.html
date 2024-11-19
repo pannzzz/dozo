@@ -108,7 +108,7 @@
 
     <div class="container form-container">
         <h1 class="text-center">Ventas</h1>
-
+    
         <!-- Tabla de Ventas -->
         <table class="table table-striped mt-4">
             <thead>
@@ -132,21 +132,57 @@
                 {% endfor %}
             </tbody>
         </table>
-
+    
+        <!-- Información adicional sobre productos -->
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Producto menos vendido</div>
+                    <div class="card-body">
+                        {% if producto_menos_vendido %}
+                            <p><strong>Producto:</strong> {{ producto_menos_vendido.producto__titulo }}</p>
+                            <p><strong>Cantidad Vendida:</strong> {{ producto_menos_vendido.total_vendido }}</p>
+                        {% else %}
+                            <p>No hay datos disponibles.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Producto más costoso</div>
+                    <div class="card-body">
+                        {% if producto_mas_costoso %}
+                            <p><strong>Producto:</strong> {{ producto_mas_costoso.titulo }}</p>
+                            <p><strong>Precio:</strong> ${{ producto_mas_costoso.precio }}</p>
+                        {% else %}
+                            <p>No hay datos disponibles.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Producto más barato</div>
+                    <div class="card-body">
+                        {% if producto_mas_barato %}
+                            <p><strong>Producto:</strong> {{ producto_mas_barato.titulo }}</p>
+                            <p><strong>Precio:</strong> ${{ producto_mas_barato.precio }}</p>
+                        {% else %}
+                            <p>No hay datos disponibles.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    
         <!-- Gráfico de Productos Más Vendidos -->
-        <div class="chart-container">
+        <div class="chart-container mt-5">
             <h2 class="text-center">Productos más vendidos</h2>
             <canvas id="productosMasVendidosChart"></canvas>
         </div>
     </div>
-
-    <footer class="footer mt-auto py-3">
-        <div class="container">
-            <span class="text-muted">&copy; 2024 Dozo Project</span>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ctx = document.getElementById('productosMasVendidosChart').getContext('2d');
@@ -181,5 +217,6 @@
             }
         });
     </script>
+    
 </body>
 </html>

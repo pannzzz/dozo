@@ -367,6 +367,49 @@ def crear_venta_api(request):
     return JsonResponse({'error': 'Método no permitido.'}, status=405)
 
 
+# Editar una venta
+def editar_venta(request, venta_id):
+    venta = get_object_or_404(Venta, id=venta_id)
+    if request.method == 'POST':
+        form = VentaForm(request.POST, instance=venta)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('mostrar_venta')
+            except Exception as e:
+                return render(request, 'ventas/venta_edit.html', {
+                    'form': form,
+                    'venta': venta,
+                    'error': f"Error al actualizar la venta: {str(e)}"
+                })
+        else:
+            return render(request, 'ventas/venta_edit.html', {
+                'form': form,
+                'venta': venta,
+                'error': "Hay errores en la información ingresada. Por favor, revisa los campos."
+            })
+    else:
+        form = VentaForm(instance=venta)
+        return render(request, 'ventas/venta_edit.html', {
+            'form': form,
+            'venta': venta
+        })
+
+# Eliminar una venta
+def eliminar_venta(request, venta_id):
+    venta = get_object_or_404(Venta, id=venta_id)
+    if request.method == 'POST':
+        try:
+            venta.delete()
+            return redirect('mostrar_venta')
+        except Exception as e:
+            return render(request, 'ventas/venta_delete.html', {
+                'venta': venta,
+                'error': f"Error al eliminar la venta: {str(e)}"
+            })
+    return render(request, 'ventas/venta_delete.html', {
+        'venta': venta
+    })
 
 
 
@@ -565,14 +608,14 @@ class VentaAPIView(APIView):
 
 
 from django.shortcuts import render
-from django.db.models import Sum, F
-from .models import Venta, VentaProducto
+from django.db.models import Sum, F, Min, Max
+from .models import Venta, VentaProducto, Producto
 
 def ventas_view(request):
     # Recuperar todas las ventas con sus productos
     ventas = Venta.objects.select_related('usuario', 'estado').prefetch_related('productos')
 
-    # Obtener datos para el gráfico
+    # Obtener productos más vendidos
     productos_mas_vendidos = (
         VentaProducto.objects
         .values('producto__titulo')
@@ -580,9 +623,28 @@ def ventas_view(request):
         .order_by('-total_vendido')[:10]  # Los 10 productos más vendidos
     )
 
+    # Producto menos vendido
+    producto_menos_vendido = (
+        VentaProducto.objects
+        .values('producto__titulo')
+        .annotate(total_vendido=Sum(F('cantidad')))
+        .order_by('total_vendido')
+        .first()
+    )
+
+    # Producto más costoso
+    producto_mas_costoso = Producto.objects.order_by('-precio').first()
+
+    # Producto más barato
+    producto_mas_barato = Producto.objects.order_by('precio').first()
+
     # Contexto para pasar a la plantilla
     context = {
         'ventas': ventas,
         'productos_mas_vendidos': productos_mas_vendidos,
+        'producto_menos_vendido': producto_menos_vendido,
+        'producto_mas_costoso': producto_mas_costoso,
+        'producto_mas_barato': producto_mas_barato,
     }
     return render(request, 'ventas.html', context)
+
