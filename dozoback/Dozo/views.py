@@ -367,49 +367,6 @@ def crear_venta_api(request):
     return JsonResponse({'error': 'Método no permitido.'}, status=405)
 
 
-# Editar una venta
-def editar_venta(request, venta_id):
-    venta = get_object_or_404(Venta, id=venta_id)
-    if request.method == 'POST':
-        form = VentaForm(request.POST, instance=venta)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('mostrar_venta')
-            except Exception as e:
-                return render(request, 'ventas/venta_edit.html', {
-                    'form': form,
-                    'venta': venta,
-                    'error': f"Error al actualizar la venta: {str(e)}"
-                })
-        else:
-            return render(request, 'ventas/venta_edit.html', {
-                'form': form,
-                'venta': venta,
-                'error': "Hay errores en la información ingresada. Por favor, revisa los campos."
-            })
-    else:
-        form = VentaForm(instance=venta)
-        return render(request, 'ventas/venta_edit.html', {
-            'form': form,
-            'venta': venta
-        })
-
-# Eliminar una venta
-def eliminar_venta(request, venta_id):
-    venta = get_object_or_404(Venta, id=venta_id)
-    if request.method == 'POST':
-        try:
-            venta.delete()
-            return redirect('mostrar_venta')
-        except Exception as e:
-            return render(request, 'ventas/venta_delete.html', {
-                'venta': venta,
-                'error': f"Error al eliminar la venta: {str(e)}"
-            })
-    return render(request, 'ventas/venta_delete.html', {
-        'venta': venta
-    })
 
 
 
