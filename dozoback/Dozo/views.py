@@ -605,3 +605,27 @@ class VentaAPIView(APIView):
             # Log para depurar
             print(f"Error: {e}")
             return Response({"error": "Error interno del servidor"}, status=500)
+
+
+from django.shortcuts import render
+from django.db.models import Sum, F
+from .models import Venta, VentaProducto
+
+def ventas_view(request):
+    # Recuperar todas las ventas con sus productos
+    ventas = Venta.objects.select_related('usuario', 'estado').prefetch_related('productos')
+
+    # Obtener datos para el gráfico
+    productos_mas_vendidos = (
+        VentaProducto.objects
+        .values('producto__titulo')
+        .annotate(total_vendido=Sum(F('cantidad')))
+        .order_by('-total_vendido')[:10]  # Los 10 productos más vendidos
+    )
+
+    # Contexto para pasar a la plantilla
+    context = {
+        'ventas': ventas,
+        'productos_mas_vendidos': productos_mas_vendidos,
+    }
+    return render(request, 'ventas.html', context)
