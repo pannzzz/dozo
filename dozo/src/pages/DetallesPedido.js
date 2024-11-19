@@ -13,7 +13,7 @@ const DetallesPedido = () => {
     useEffect(() => {
         const fetchPedido = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/pedidos/${id}/`, {
+                const response = await axios.get(`https://dozo-77rz.vercel.app/api/pedidos/${id}/`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
