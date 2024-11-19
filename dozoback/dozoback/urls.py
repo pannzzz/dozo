@@ -50,10 +50,10 @@ urlpatterns = [
     path('carritos/nuevo/', views.crear_carrito, name='crear_carrito'),
     path('cart/', CartView.as_view(), name='cart'),
     # Venta URLs
-    path('ventas/', views.mostrar_venta, name='mostrar_venta'),
     path('ventas/editar/<int:venta_id>/', views.editar_venta, name='editar_venta'),
     path('ventas/eliminar/<int:venta_id>/', views.eliminar_venta, name='eliminar_venta'),
     path('api/ventas/', views.crear_venta_api, name='crear_venta_api'),
+    path('ventas/', views.ventas_view, name='ventas'),
     
     #api
     path('api/productos/', ProductoListAPIView.as_view(), name='producto-list'),  # Nota el uso de .as_view()
