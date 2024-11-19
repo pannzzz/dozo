@@ -82,24 +82,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/users/">Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/productos/">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/productos/nuevo/">Productos nuevo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/categorias/">Categorías</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/ventas/">Ventas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:3000">Home</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/users/">Usuarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/productos/">Productos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/productos/nuevo/">Productos nuevo</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/categorias/">Categorías</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/ventas/">Ventas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="http://localhost:3000">Home</a></li>
                     </ul>
                 </div>
             </div>
@@ -108,7 +96,7 @@
 
     <div class="container form-container">
         <h1 class="text-center">Ventas</h1>
-    
+
         <!-- Tabla de Ventas -->
         <table class="table table-striped mt-4">
             <thead>
@@ -131,24 +119,31 @@
                 </tr>
                 {% endfor %}
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"></td>
+                    <td><strong>Subtotal: ${{ subtotal }}</strong></td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
-    
+
         <!-- Información adicional sobre productos -->
         <div class="row mt-5">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">Producto menos vendido</div>
-                    <div class="card-body">
-                        {% if producto_menos_vendido %}
-                            <p><strong>Producto:</strong> {{ producto_menos_vendido.producto__titulo }}</p>
-                            <p><strong>Cantidad Vendida:</strong> {{ producto_menos_vendido.total_vendido }}</p>
-                        {% else %}
-                            <p>No hay datos disponibles.</p>
-                        {% endif %}
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">Producto más vendido</div>
+                        <div class="card-body">
+                            {% if producto_mas_vendido %}
+                                <p><strong>Producto:</strong> {{ producto_mas_vendido.producto__titulo }}</p>
+                                <p><strong>Cantidad Vendida:</strong> {{ producto_mas_vendido.total_vendido }}</p>
+                            {% else %}
+                                <p>No hay datos disponibles.</p>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card">
                     <div class="card-header">Producto más costoso</div>
                     <div class="card-body">
@@ -161,7 +156,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card">
                     <div class="card-header">Producto más barato</div>
                     <div class="card-body">
@@ -174,19 +169,39 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">Producto menos vendido</div>
+                    <div class="card-body">
+                        {% if producto_menos_vendido %}
+                            <p><strong>Producto:</strong> {{ producto_menos_vendido.producto__titulo }}</p>
+                            <p><strong>Cantidad Vendida:</strong> {{ producto_menos_vendido.total_vendido }}</p>
+                        {% else %}
+                            <p>No hay datos disponibles.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
-    
+
         <!-- Gráfico de Productos Más Vendidos -->
         <div class="chart-container mt-5">
             <h2 class="text-center">Productos más vendidos</h2>
             <canvas id="productosMasVendidosChart"></canvas>
         </div>
+
+        <!-- Gráfico de Ganancias -->
+        <div class="chart-container mt-5">
+            <h2 class="text-center">Gráfico de Ganancias</h2>
+            <canvas id="gananciasChart"></canvas>
+        </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const ctx = document.getElementById('productosMasVendidosChart').getContext('2d');
-        const productosMasVendidosChart = new Chart(ctx, {
+        // Gráfico de Productos Más Vendidos
+        const productosCtx = document.getElementById('productosMasVendidosChart').getContext('2d');
+        const productosMasVendidosChart = new Chart(productosCtx, {
             type: 'bar',
             data: {
                 labels: [{% for item in productos_mas_vendidos %}'{{ item.producto__titulo }}',{% endfor %}],
@@ -216,7 +231,39 @@
                 }
             }
         });
+
+        // Gráfico de Ganancias
+        const gananciasCtx = document.getElementById('gananciasChart').getContext('2d');
+        const gananciasChart = new Chart(gananciasCtx, {
+            type: 'line',
+            data: {
+                labels: [{% for item in ganancias %}'{{ item.fecha_venta__date }}',{% endfor %}],
+                datasets: [{
+                    label: 'Ganancias',
+                    data: [{% for item in ganancias %}{{ item.total_ganancias }},{% endfor %}],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Ganancias por Fecha'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     </script>
-    
 </body>
 </html>

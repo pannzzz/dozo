@@ -615,12 +615,21 @@ def ventas_view(request):
     # Recuperar todas las ventas con sus productos
     ventas = Venta.objects.select_related('usuario', 'estado').prefetch_related('productos')
 
-    # Obtener productos más vendidos
+    # Obtener datos para el gráfico de productos más vendidos
     productos_mas_vendidos = (
         VentaProducto.objects
         .values('producto__titulo')
         .annotate(total_vendido=Sum(F('cantidad')))
         .order_by('-total_vendido')[:10]  # Los 10 productos más vendidos
+    )
+
+    # Producto más vendido
+    producto_mas_vendido = (
+        VentaProducto.objects
+        .values('producto__titulo')
+        .annotate(total_vendido=Sum(F('cantidad')))
+        .order_by('-total_vendido')
+        .first()
     )
 
     # Producto menos vendido
@@ -638,13 +647,28 @@ def ventas_view(request):
     # Producto más barato
     producto_mas_barato = Producto.objects.order_by('precio').first()
 
+    # Calcular el subtotal de todas las ventas
+    subtotal = ventas.aggregate(total=Sum('total'))['total'] or 0
+
+    # Calcular las ganancias por fecha
+    ganancias = (
+        Venta.objects
+        .values('fecha_venta__date')  # Agrupar por fecha
+        .annotate(total_ganancias=Sum('total'))
+        .order_by('fecha_venta__date')
+    )
+
     # Contexto para pasar a la plantilla
     context = {
         'ventas': ventas,
         'productos_mas_vendidos': productos_mas_vendidos,
+        'producto_mas_vendido': producto_mas_vendido,
         'producto_menos_vendido': producto_menos_vendido,
         'producto_mas_costoso': producto_mas_costoso,
         'producto_mas_barato': producto_mas_barato,
+        'subtotal': subtotal,
+        'ganancias': ganancias,
     }
     return render(request, 'ventas.html', context)
+
 
