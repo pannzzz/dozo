@@ -13,6 +13,7 @@ import MisPedidos from './components/MisPedidos';
 import { CartProvider } from './components/CartContext';
 import { FilterProvider } from './components/FilterContext'; // Importa el contexto de filtros
 import DetallesPedido from './pages/DetallesPedido';
+import MinPage from './components/MainPage';
 import './App.css';
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
               <Route path="/detalles/:id" element={<MoreDetails />} />
               <Route path="/mispedidos" element={<MisPedidos />} />
               <Route path="/detalles-pedido/:id" element={<DetallesPedido />} />
+              <Route path="/minpage" element={<MinPage />} />
             </Routes>
           </div>
         </Router>

@@ -76,7 +76,9 @@ const Navbar = ({ initialScrolled = false }) => {
                     </Link>
 
                     {user ? (
-                        <span className="login-link">Hola, {user.username}</span>
+                        <Link to="/minpage" className="login-link">
+                            Hola, {user.username}
+                        </Link>
                     ) : (
                         <Link to="/login" className="login-link">INICIAR SESIÓN</Link>
                     )}

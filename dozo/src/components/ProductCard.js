@@ -21,7 +21,6 @@ const ProductCardComponent = ({ onProductCountChange }) => {
         fetch('http://localhost:8000/api/productos/')
             .then((response) => response.json())
             .then((data) => {
-                console.log('Productos recibidos:', data); // Depuración: Verifica los datos
                 setProductos(data);
                 setFilteredProducts(data);
                 setVisibleProducts(data.slice(0, PRODUCTS_INITIAL));
@@ -34,36 +33,33 @@ const ProductCardComponent = ({ onProductCountChange }) => {
     // Aplicar filtros a los productos
     useEffect(() => {
         if (filters) {
-            const { min, max, category, search } = filters;
-
-            console.log('Filtros actuales:', filters); // Depuración: Verifica los filtros
+            const { prices = [], categories = [], search } = filters;
 
             const filtered = productos.filter((producto) => {
                 const matchesPrice =
-                    min !== undefined && max !== undefined
-                        ? producto.precio >= min && producto.precio <= max
+                    prices.length > 0
+                        ? prices.some(
+                              (range) =>
+                                  producto.precio >= range.min &&
+                                  producto.precio <= range.max
+                          )
                         : true;
-                
-                // Depuración: Verifica cómo se está filtrando la categoría
-                const matchesCategory = category
-                    ? producto.categoria?.nombre.toLowerCase() === category.toLowerCase()
-                    : true;
-                
+
+                const matchesCategory =
+                    categories.length > 0
+                        ? categories.some(
+                              (category) =>
+                                  producto.categoria?.nombre.toLowerCase() ===
+                                  category.toLowerCase()
+                          )
+                        : true;
+
                 const matchesSearch = search
                     ? producto.titulo.toLowerCase().includes(search.toLowerCase())
                     : true;
 
-                // Depuración: Mostrar si el producto coincide con los filtros
-                console.log(`Producto ${producto.titulo}:`, {
-                    matchesPrice,
-                    matchesCategory,
-                    matchesSearch
-                });
-
                 return matchesPrice && matchesCategory && matchesSearch;
             });
-
-            console.log('Productos filtrados:', filtered); // Depuración: Verifica los productos filtrados
 
             setFilteredProducts(filtered);
             setVisibleProducts(filtered.slice(0, PRODUCTS_INITIAL));
@@ -93,9 +89,8 @@ const ProductCardComponent = ({ onProductCountChange }) => {
 
     // Eliminar un filtro aplicado
     const clearFilter = (filterKey) => {
-        const newFilters = { ...filters };
-        delete newFilters[filterKey];
-        applyFilters(newFilters); // Asegúrate de usar applyFilters aquí
+        const newFilters = { ...filters, [filterKey]: [] };
+        applyFilters(newFilters);
     };
 
     if (loading) {
@@ -114,22 +109,41 @@ const ProductCardComponent = ({ onProductCountChange }) => {
                         🔍 "{filters.search}" <span className="equis">×</span>
                     </li>
                 )}
-                {filters?.category && (
-                    <li
-                        className="selector_categoria"
-                        onClick={() => clearFilter('category')}
-                    >
-                        🏷️ {filters.category} <span className="equis">×</span>
-                    </li>
-                )}
-                {filters?.min !== undefined && filters?.max !== undefined && (
-                    <li
-                        className="selector_categoria"
-                        onClick={() => clearFilter('price')}
-                    >
-                        💰 {`De $${filters.min} a $${filters.max}`} <span className="equis">×</span>
-                    </li>
-                )}
+                {filters?.categories?.length > 0 &&
+                    filters.categories.map((category) => (
+                        <li
+                            key={category}
+                            className="selector_categoria"
+                            onClick={() =>
+                                applyFilters({
+                                    ...filters,
+                                    categories: filters.categories.filter(
+                                        (c) => c !== category
+                                    ),
+                                })
+                            }
+                        >
+                            🏷️ {category} <span className="equis">×</span>
+                        </li>
+                    ))}
+                {filters?.prices?.length > 0 &&
+                    filters.prices.map((range, index) => (
+                        <li
+                            key={index}
+                            className="selector_categoria"
+                            onClick={() =>
+                                applyFilters({
+                                    ...filters,
+                                    prices: filters.prices.filter(
+                                        (r) => r !== range
+                                    ),
+                                })
+                            }
+                        >
+                            💰 {`De $${range.min} a $${range.max}`}{' '}
+                            <span className="equis">×</span>
+                        </li>
+                    ))}
             </div>
 
             {/* Mostrar productos */}

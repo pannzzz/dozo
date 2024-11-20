@@ -4,8 +4,8 @@ import { useFilters } from './FilterContext'; // Importar el contexto de filtros
 
 const Filtro = ({ onClose, productCount = 0 }) => {
     const { applyFilters } = useFilters(); // Obtener la función para aplicar filtros
-    const [activePrice, setActivePrice] = useState(null);
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [activePrices, setActivePrices] = useState([]); // Múltiples precios seleccionados
+    const [selectedCategories, setSelectedCategories] = useState([]); // Múltiples categorías seleccionadas
 
     const priceRanges = [
         { min: 30000, max: 50000, label: 'De $30,000 a $50,000' },
@@ -26,27 +26,26 @@ const Filtro = ({ onClose, productCount = 0 }) => {
     ];
 
     const handlePriceClick = (index) => {
-        setActivePrice(index);
+        setActivePrices((prev) =>
+            prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+        );
     };
 
     const handleCategoryClick = (category) => {
-        setSelectedCategory(category === selectedCategory ? null : category); // Alternar la selección
+        setSelectedCategories((prev) =>
+            prev.includes(category)
+                ? prev.filter((c) => c !== category)
+                : [...prev, category]
+        );
     };
 
     const applyFilter = () => {
-        const selectedRange = activePrice !== null ? priceRanges[activePrice] : null;
+        const selectedRanges = activePrices.map((index) => priceRanges[index]);
         const filters = {
-            ...(selectedRange && { min: selectedRange.min, max: selectedRange.max }),
-            ...(selectedCategory && { category: selectedCategory }), // Aplicar la categoría seleccionada
+            prices: selectedRanges.map((range) => ({ min: range.min, max: range.max })),
+            categories: selectedCategories,
         };
         applyFilters(filters); // Aplicar filtros
-        onClose(); // Cerrar el filtro
-    };
-
-    const clearFilters = () => {
-        setActivePrice(null);
-        setSelectedCategory(null);
-        applyFilters({}); // Restablecer filtros
         onClose(); // Cerrar el filtro
     };
 
@@ -77,7 +76,9 @@ const Filtro = ({ onClose, productCount = 0 }) => {
                                         {priceRanges.map((range, index) => (
                                             <li key={index}>
                                                 <button
-                                                    className={`js-priceBtn add-searchPriceSelect__button ${activePrice === index ? 'active' : ''}`}
+                                                    className={`js-priceBtn add-searchPriceSelect__button ${
+                                                        activePrices.includes(index) ? 'active' : ''
+                                                    }`}
                                                     type="button"
                                                     onClick={() => handlePriceClick(index)}
                                                 >
@@ -107,7 +108,9 @@ const Filtro = ({ onClose, productCount = 0 }) => {
                                             <li key={index}>
                                                 <button
                                                     type="button"
-                                                    className={`add-tagItem ${selectedCategory === category ? 'active' : ''}`}
+                                                    className={`add-tagItem ${
+                                                        selectedCategories.includes(category) ? 'active' : ''
+                                                    }`}
                                                     onClick={() => handleCategoryClick(category)}
                                                 >
                                                     {category}
@@ -124,14 +127,6 @@ const Filtro = ({ onClose, productCount = 0 }) => {
                     <div className="botonn">
                         <button type="button" className="boton" onClick={applyFilter}>
                             Aplicar filtros
-                        </button>
-                        <button
-                            type="button"
-                            className="boton"
-                            onClick={clearFilters}
-                            style={{ backgroundColor: '#D89B67' }} // Color diferente para "Quitar filtros"
-                        >
-                            Quitar filtros
                         </button>
                     </div>
                 </div>
