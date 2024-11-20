@@ -17,7 +17,7 @@ const HowToPage = () => {
             <a href="/" className="breadcrumb-home3">Dozo</a> / Cómo usar el dozo
                 <h3>IN YOUR STYLE</h3>
                 <div className="underline"></div>
-                <h1><HowToUseicon/></h1>
+                <h1 className='howtouse'><HowToUseicon/></h1>
                 <h2>Cómo usar el dozo</h2>
                 <p>
                     Dozo es un servicio que permite al cliente poder

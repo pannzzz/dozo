@@ -219,4 +219,113 @@ body {
     .menu-icon {
         margin-bottom: 10px;
     }
+
+
+    .navbar.scrolled .navbar-left,
+    .navbar.scrolled .navbar-center,
+    .navbar.scrolled .navbar-right {
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+    }
+
+    .navbar.scrolled .navbar-logo-left {
+        height: 45px;
+        margin-left: -250px;
+        margin-top: -10px;
+    }
+
+    .navbar.scrolled .search-form {
+        width: 80%;
+        margin: 20px auto;
+        margin-left: -230px;
+        margin-top: -7px;
+    }
+
+    .navbar.scrolled .login-link{
+        margin-top: -50px;
+        margin-left: -110px;
+    }
+
+
+    .navbar.scrolled .cart-icon {
+        margin-left: 50px;
+        margin-top: -60px;
+        
+    }
+
+    .navbar.scrolled .cart-count {
+        margin-top: -30px;
+    }
+
+    .navbar.scrolled .menu-icon {
+        margin-top: -75px;
+        margin-right: -140px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+    .navbar {
+        justify-content: space-between;
+    }
+
+    .navbar-right {
+        flex-direction: column;
+    }
+
+    .search-form {
+        width: 100%;
+    }
+
+    .login-link,
+    .cart,
+    .menu-icon {
+        margin-bottom: 10px;
+    }
+
+
+    .navbar.scrolled .navbar-left,
+    .navbar.scrolled .navbar-center,
+    .navbar.scrolled .navbar-right {
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+    }
+
+    .navbar.scrolled .navbar-logo-left {
+        height: 45px;
+        margin-left: -200px;
+        margin-top: -10px;
+    }
+
+    .navbar.scrolled .search-form {
+        width: 80%;
+        margin: 20px auto;
+        margin-left: -170px;
+        margin-top: -7px;
+    }
+
+    .navbar.scrolled .login-link{
+        margin-top: -50px;
+        margin-left: -10px;
+    }
+
+
+    .navbar.scrolled .cart-icon {
+        margin-left: 140px;
+        margin-top: -60px;
+        
+    }
+
+    .navbar.scrolled .cart-count {
+        margin-top: -30px;
+    }
+
+    .navbar.scrolled .menu-icon {
+        margin-top: -75px;
+        margin-right: -240px;
+    }
+
 }

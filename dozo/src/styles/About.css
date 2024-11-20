@@ -118,9 +118,17 @@
 
 /* Media queries para responsividad */
 @media (max-width: 1024px) {
-    .breadcrumb {
-        margin-left: 20px;
-        font-size: 12px;
+    .breadcrumb-home1 {
+        color: #3a3a3a;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 14px;
+        color: #3a3a3a;
+        margin-top: 100px;
+        margin-bottom: 20px;
+        margin-left: -400px;
+        font-family: Arial, sans-serif;
     }
 
     .about-container h3 {

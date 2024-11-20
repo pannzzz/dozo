@@ -13,7 +13,7 @@
     };
 
     const defaultProps = {
-    text: 'Un regalo que inicia una historia',
+    text: 'Encuentra tu estilo con unos clicks',
     };
 
     const Text = (props) => {
