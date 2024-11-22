@@ -12,6 +12,7 @@ import cat6 from '../assets/img-category/chaquetas.png';
 import cat7 from '../assets/img-category/faldas.png';
 import cat8 from '../assets/img-category/blusas.png';
 
+// Lista de categorías con su imagen y etiqueta
 const categories = [
     { src: cat1, label: 'Camisetas' },
     { src: cat2, label: 'Pantalones' },
@@ -28,7 +29,7 @@ const CategoryComponent = () => {
     const { applyFilters } = useFilters(); // Obtener la función para aplicar filtros
 
     const handleCategoryClick = (category) => {
-        applyFilters({ category }); // Aplicar filtro de categoría al contexto
+        applyFilters({ categories: [category] }); // Aplicar filtro de categoría como arreglo
         navigate('/findgift'); // Redirigir a la página de productos
     };
 
@@ -47,7 +48,7 @@ const CategoryComponent = () => {
                         onClick={() => handleCategoryClick(category.label)} // Manejar clic en categoría
                         style={{ cursor: 'pointer' }}
                     >
-                        <img src={category.src} alt={`Categoría ${index + 1}`} />
+                        <img src={category.src} alt={`Categoría ${category.label}`} />
                         <p>{category.label}</p>
                     </div>
                 ))}

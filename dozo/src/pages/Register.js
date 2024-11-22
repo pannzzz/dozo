@@ -14,7 +14,7 @@ const Register = () => {
             </div>
             <div className="register-container">
                 <h2>Registro de nuevos miembros</h2>
-                <p>¡Aquellos que se registren como miembros en LINE recibirán un cupón de descuento de 500 yenes que se puede usar de inmediato!</p>
+                <p>¡Aquellos que se registren como miembros les damos la bienvenida a todos lo que vayan a ser y seran parte de Dozo!</p>
             </div>
             <Formulario />
         </>

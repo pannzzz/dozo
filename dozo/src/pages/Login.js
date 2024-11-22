@@ -100,11 +100,11 @@ const Login = () => {
                     <div className="new-user-box">
                         <h3>Para quienes visitan por primera vez</h3>
                         <p>
-                            ¡Aquellos que se registren como<br />
-                            miembros en LINE recibirán<br />
-                            un cupón de descuento de 500 <br />
-                            yenes que se puede usar <br />
-                            de inmediato!
+                        ¡Aquellos que se registren como <br />
+                        miembros les damos la bienvenida <br />
+                        a todos lo que vayan <br />
+                        a ser y seran <br />
+                        parte de Dozo!
                         </p>
                         <button className="new-user-button" onClick={handleRegisterRedirect}>
                             Registro de nuevos miembros
