@@ -36,7 +36,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'username', 'email', 'password', 
             'first_name', 'last_name', 
             'department', 'city', 'address', 
-            'postal_code', 'role'
+            'postal_code', 'role', 'telefono'
         ]
         extra_kwargs = {
             'password': {'write_only': True},  # Oculta la contraseña en las respuestas

@@ -115,16 +115,20 @@ const MainPage = () => {
                                                 <p className="txtx">{`${user.first_name} ${user.last_name}`}</p>
                                             </li>
                                             <li className="fol">
-                                                <p className="caption">Género</p>
-                                                <p className="txtx">Mujer</p> {/* Puedes actualizar este dato si está en tu modelo */}
+                                                <p className="caption">Telefono</p>
+                                                <p className="txtx">{`${user.telefono}`}</p>
                                             </li>
                                             <li className="fol">
-                                                <p className="caption">Fecha de nacimiento</p>
-                                                <p className="txtx">2005-09-23</p> {/* Actualízalo si tienes este campo */}
+                                                <p className="caption">Departamento</p>
+                                                <p className="txtx">{`${user.department}`}</p> {/* Puedes actualizar este dato si está en tu modelo */}
                                             </li>
                                             <li className="fol">
-                                                <p className="caption">ID de la aplicación</p>
-                                                <p className="txtx">{user.id}</p>
+                                                <p className="caption">Ciudad</p>
+                                                <p className="txtx">{`${user.city}`}</p> {/* Actualízalo si tienes este campo */}
+                                            </li>
+                                            <li className="fol">
+                                                <p className="caption">Codigo postal</p>
+                                                <p className="txtx">{user.postal_code}</p>
                                             </li>
                                             <li className="fol">
                                                 <p className="caption">Boletín de noticias por correo electrónico</p>
@@ -165,22 +169,6 @@ const MainPage = () => {
                         </div>
                     </section>
 
-                    {/* Favorites */}
-                    <section className="con_mypage_block">
-                        <h2 className="st">
-                            <span className="txt">Favorito</span>
-                            <span className="icon"></span>
-                        </h2>
-                        <div className="box_mypage1">
-                            <div className="box_favorite">
-                                <p className="btn3">
-                                    <a href="/a/p/customer/favorites" className="btn_black_border1 hoverBtn">
-                                        Revisa tus prendas favoritas
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                    </section>
 
                     {/* Order History */}
                     <section className="con_mypage_block4">
