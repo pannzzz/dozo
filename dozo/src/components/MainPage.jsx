@@ -1,20 +1,50 @@
-    import React from "react";
-    import "../styles/MainPage.css";
-    import Navbar from '../components/Navbar';
-    import FooterComponent from '../components/FooterComponent';
+import React, { useEffect, useState } from "react";
+import "../styles/MainPage.css";
+import Navbar from "../components/Navbar";
+import FooterComponent from "../components/FooterComponent";
 
-    const MainPage = () => {
+const MainPage = () => {
+    const [user, setUser] = useState(null); // Estado para almacenar la información del usuario
+    const [loading, setLoading] = useState(true); // Estado para manejar la carga
+
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            try {
+                const response = await fetch("http://localhost:8000/api/user/profile/", {
+                    credentials: "include", // Incluir cookies para mantener la sesión
+                });
+                if (!response.ok) {
+                    throw new Error("Error al obtener el perfil del usuario.");
+                }
+                const data = await response.json();
+                setUser(data);
+            } catch (error) {
+                console.error("Error al cargar el perfil:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUserProfile();
+    }, []);
+
+    if (loading) {
+        return <p>Cargando...</p>;
+    }
+
+    if (!user) {
+        return <p>Error al cargar el perfil del usuario.</p>;
+    }
+
     return (
-
-
         <>
-        <Navbar initialScrolled={true} />
-        <main className="main-content">
-        {/* Breadcrumb */}
-        <div className="breadcrumb-containermain">
-                <a href="/" className="breadcrumb-moremain">Dozo</a> / 
-                <a href="/findgift" className="breadcrumb-moremain"> Mi pagina</a>
-            </div>
+            <Navbar initialScrolled={true} />
+            <main className="main-content">
+                {/* Breadcrumb */}
+                <div className="breadcrumb-containermain">
+                    <a href="/" className="breadcrumb-moremain">Dozo</a> /
+                    <a href="/findgift" className="breadcrumb-moremain"> Mi página</a>
+                </div>
 
         {/* Main Section */}
         <section className="add-sectionGeneral narrow">
@@ -62,127 +92,125 @@
             </div>
         </section>
 
-        {/* Wrapper */}
-        <div className="wrp_mypage">
+                {/* Wrapper */}
+                <div className="wrp_mypage">
+                    {/* Account Information */}
+                    <section className="con_mypage_block">
+                        <h2 className="st">
+                            <span className="txt">Información de la cuenta</span>
+                            <span className="icon"></span>
+                        </h2>
 
-            {/* Account Information */}
-            <section className="con_mypage_block">
-            <h2 class="st">
-                <span class="txt"><font _mstmutation="1" _msttexthash="514215" _msthash="36">Información de la cuenta </font></span>
-                <span class="icon"></span>
-                </h2>
+                        <div className="box_mypage">
+                            <div className="box_infos">
+                                <div className="box_top">
+                                    <div className="info">
+                                        <ul>
+                                            <li className="fol">
+                                                <p className="caption">Dirección de correo electrónico</p>
+                                                <p className="txtx">{user.email}</p>
+                                            </li>
+                                            <li className="fol">
+                                                <p className="caption">Te llamas</p>
+                                                <p className="txtx">{`${user.first_name} ${user.last_name}`}</p>
+                                            </li>
+                                            <li className="fol">
+                                                <p className="caption">Género</p>
+                                                <p className="txtx">Mujer</p> {/* Puedes actualizar este dato si está en tu modelo */}
+                                            </li>
+                                            <li className="fol">
+                                                <p className="caption">Fecha de nacimiento</p>
+                                                <p className="txtx">2005-09-23</p> {/* Actualízalo si tienes este campo */}
+                                            </li>
+                                            <li className="fol">
+                                                <p className="caption">ID de la aplicación</p>
+                                                <p className="txtx">{user.id}</p>
+                                            </li>
+                                            <li className="fol">
+                                                <p className="caption">Boletín de noticias por correo electrónico</p>
+                                                <p className="txtx">Recibir</p> {/* Actualízalo según tus datos */}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="btn">
+                                        <p className="btn">
+                                            <a href="/a/p/customer/edit" className="btn_black_border hoverBtn">
+                                                Edita tu información
+                                            </a>
+                                        </p>
+                                        <p className="btn">
+                                            <a href="/a/p/customer/password" className="btn_black_border hoverBtn">
+                                                Cambia tu contraseña
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
 
-            <div className="box_mypage">
-                <div className="box_infos">
-                <div className="box_top">
-                    <div className="info">
-                    <ul>
-                <li className="fol">
-                <p class="caption" _msttexthash="868153" _msthash="37">Dirección de correo electrónico</p>
-                <p class="txtx" _msttexthash="458991" _msthash="38">mariazzz2326@gmail.com</p>
-                </li>
-                        <li className="fol">
-                        <p className="caption">Te llamas</p>
-                        <p className="txtx">Díaz María</p>
-                        </li>
-                        <li className="fol">
-                        <p className="caption">Género</p>
-                        <p className="txtx">Mujer</p>
-                        </li>
-                        <li className="fol">
-                        <p className="caption">Fecha de nacimiento</p>
-                        <p className="txtx">2005-09-23</p>
-                        </li>
-                        <li className="fol">
-                        <p className="caption">ID de la aplicación</p>
-                        <p className="txtx"></p>
-                        </li>
-                        <li className="fol">
-                        <p className="caption">Boletín de noticias por correo electrónico</p>
-                        <p className="txtx">Recibir</p>
-                        </li>
-                    </ul>
+                                <h3 className="info_direccion">Información de dirección predeterminada</h3>
+                                <div className="box_bottom">
+                                    <div className="info">
+                                        <div className="address">
+                                            <p className="line1">{user.address || "No hay información de dirección registrada"}</p>
+                                        </div>
+                                    </div>
+                                    <div className="btns">
+                                        <p className="btn">
+                                            <a href="/account/addresses" className="btn_black_border hoverBtn">
+                                                Lista de direcciones
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Favorites */}
+                    <section className="con_mypage_block">
+                        <h2 className="st">
+                            <span className="txt">Favorito</span>
+                            <span className="icon"></span>
+                        </h2>
+                        <div className="box_mypage1">
+                            <div className="box_favorite">
+                                <p className="btn3">
+                                    <a href="/a/p/customer/favorites" className="btn_black_border1 hoverBtn">
+                                        Revisa tus prendas favoritas
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Order History */}
+                    <section className="con_mypage_block4">
+                        <h2 className="st">
+                            <span className="txt">Historial de pedidos</span>
+                            <span className="icon"></span>
+                        </h2>
+                        <div className="box_mypage4">
+                            <div className="box_his">
+                                <div className="box_table">
+                                    <p>Todavía no he finalizado mi pedido.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Logout */}
+                    <div className="box_btn5">
+                        <p className="btn5">
+                            <a href="/account/logout">Cerrar sesión</a>
+                        </p>
+                        <p className="btn6">
+                            <a href="/a/p/customer/delete">Haga clic aquí para</a> darse de baja.
+                        </p>
                     </div>
-                    <div className="btn">
-                    <p className="btn">
-                        <a href="/a/p/customer/edit" className="btn_black_border hoverBtn">
-                        Edita tu información
-                        </a>
-                    </p>
-                    <p className="btn">
-                        <a href="/a/p/customer/password" className="btn_black_border hoverBtn">
-                        Cambia tu contraseña
-                        </a>
-                    </p>
-                    </div>
                 </div>
-
-
-                <h3 className="info_direccion">Información de dirección predeterminada</h3>
-                <div className="box_bottom">
-                    <div className="info">
-                    <div className="address">
-                        <p className="line1">No hay información de dirección registrada</p>
-                    </div>
-                    </div>
-                    <div className="btns">
-                    <p className="btn">
-                        <a href="/account/addresses" className="btn_black_border hoverBtn">
-                        Lista de direcciones
-                        </a>
-                    </p>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </section>
-
-            {/* Favorites */}
-            <section className="con_mypage_block">
-            <h2 className="st">
-                <span className="txt">Favorito</span>
-                <span className="icon"></span>
-            </h2>
-            <div className="box_mypage1">
-                <div className="box_favorite">
-                <p className="btn3">
-                    <a href="/a/p/customer/favorites" className="btn_black_border1 hoverBtn">
-                    Revisa tus prendas favoritas
-                    </a>
-                </p>
-                </div>
-            </div>
-            </section>
-
-            {/* Order History */}
-            <section className="con_mypage_block4">
-            <h2 className="st">
-                <span className="txt">Historial de pedidos</span>
-                <span className="icon"></span>
-            </h2>
-            <div className="box_mypage4">
-                <div className="box_his">
-                <div className="box_table">
-                    <p>Todavía no he finalizado mi pedido.</p>
-                </div>
-                </div>
-            </div>
-            </section>
-
-            {/* Logout */}
-            <div className="box_btn5">
-            <p className="btn5">
-                <a href="/account/logout">Cerrar sesión</a>
-            </p>
-            <p className="btn6">
-                <a href="/a/p/customer/delete">Haga clic aquí para</a> darse de baja.
-            </p>
-            </div>
-        </div>
-        </main>
-        <FooterComponent />
+            </main>
+            <FooterComponent />
         </>
     );
-    };
+};
 
-    export default MainPage;
+export default MainPage;

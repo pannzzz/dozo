@@ -23,6 +23,8 @@ from Dozo.views import ProductoListAPIView, ProductoDetailAPIView
 from Dozo.views import CartView
 from Dozo.views import RegisterUserView
 from Dozo.views import PedidoDetailView
+from Dozo.views import user_profile
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -62,6 +64,7 @@ urlpatterns = [
     path('api/register/', RegisterUserView.as_view(), name='register'),
     path('api/products/', views.filter_products, name='filter_products'),
     path('api/pedidos/<int:id>/', PedidoDetailView.as_view(), name='pedido-detail'),
+    path('api/user/profile/', user_profile, name='user_profile'),
 ]
 if settings.DEBUG:  # Solo para desarrollo
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

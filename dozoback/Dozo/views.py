@@ -731,3 +731,16 @@ def ventas_view(request):
         'ventas_mensuales': ventas_mensuales,
     }
     return render(request, 'ventas.html', context)
+
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.contrib.auth.decorators import login_required
+from .serializers import CustomUserSerializer
+
+@api_view(['GET'])
+@login_required
+def user_profile(request):
+    user = request.user
+    serializer = CustomUserSerializer(user)
+    return Response(serializer.data)
