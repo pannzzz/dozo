@@ -5,7 +5,7 @@ import { FaWhatsapp } from 'react-icons/fa'; // Importamos el ícono de WhatsApp
 const FloatingButton = () => {
     return (
         <a 
-            href="https://wa.me/1234567890" // Reemplaza "1234567890" con tu número de WhatsApp
+            href="https://wa.me/573027440953" // Enlace directo a WhatsApp con el número +57 3027440953
             target="_blank" 
             rel="noopener noreferrer" 
             className="add-fixedBadge add-js-fixedBadge add-is-fixed add-is-positionAdjust"

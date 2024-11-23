@@ -75,3 +75,15 @@
     left: 0;
     z-index: 1;
 }
+
+.whatsapp-icon {
+    font-size: 40px; /* Tamaño del ícono */
+    color: #1b1b1b; /* Color oficial de WhatsApp */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 30%;
+}
+
