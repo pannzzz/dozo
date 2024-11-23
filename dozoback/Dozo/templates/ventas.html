@@ -97,7 +97,6 @@
     <div class="container form-container">
         <h1 class="text-center">Ventas</h1>
 
-        <!-- Tabla de Ventas -->
         <table class="table table-striped mt-4">
             <thead>
                 <tr>
@@ -127,6 +126,33 @@
                 </tr>
             </tfoot>
         </table>
+
+        <!-- Controles de Paginación -->
+        <div class="d-flex justify-content-center mt-4">
+            <nav>
+                <ul class="pagination">
+                    {% if ventas.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ ventas.previous_page_number }}" aria-label="Anterior">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% for num in ventas.paginator.page_range %}
+                    <li class="page-item {% if ventas.number == num %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endfor %}
+                    {% if ventas.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ ventas.next_page_number }}" aria-label="Siguiente">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
 
         <!-- Información adicional sobre productos -->
         <div class="row mt-5">
@@ -197,6 +223,19 @@
         </div>
     </div>
 
+    <!-- Gráfico de Ventas Diarias -->
+<div class="chart-container mt-5">
+    <h2 class="text-center">Ventas Diarias</h2>
+    <canvas id="ventasDiariasChart"></canvas>
+</div>
+
+<!-- Gráfico de Ventas Mensuales -->
+<div class="chart-container mt-5">
+    <h2 class="text-center">Ventas Mensuales</h2>
+    <canvas id="ventasMensualesChart"></canvas>
+</div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Gráfico de Productos Más Vendidos
@@ -265,5 +304,73 @@
             }
         });
     </script>
+    <script>
+        // Gráfico de Ventas Diarias
+        const ventasDiariasCtx = document.getElementById('ventasDiariasChart').getContext('2d');
+        const ventasDiariasChart = new Chart(ventasDiariasCtx, {
+            type: 'line',
+            data: {
+                labels: [{% for item in ventas_diarias %}'{{ item.dia }}',{% endfor %}],
+                datasets: [{
+                    label: 'Ventas Diarias',
+                    data: [{% for item in ventas_diarias %}{{ item.total_ventas }},{% endfor %}],
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Ventas Diarias'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    
+        // Gráfico de Ventas Mensuales
+        const ventasMensualesCtx = document.getElementById('ventasMensualesChart').getContext('2d');
+        const ventasMensualesChart = new Chart(ventasMensualesCtx, {
+            type: 'bar',
+            data: {
+                labels: [{% for item in ventas_mensuales %}'{{ item.mes }}',{% endfor %}],
+                datasets: [{
+                    label: 'Ventas Mensuales',
+                    data: [{% for item in ventas_mensuales %}{{ item.total_ventas }},{% endfor %}],
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Ventas Mensuales'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    
 </body>
 </html>

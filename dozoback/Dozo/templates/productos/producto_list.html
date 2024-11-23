@@ -22,7 +22,7 @@
 
         .navbar {
             background-color: #5ec0a1;
-            height: 70px; /* Ajustamos el tamaño del navbar */
+            height: 70px;
             padding: 0 40px;
             position: fixed;
             top: 0;
@@ -77,24 +77,12 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/users/">Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/productos/">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/productos/nuevo/">Productos nuevo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/categorias/">Categorías</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/ventas/">Ventas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:3000">Home</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/users/">Usuarios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/productos/">Productos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/productos/nuevo/">Productos nuevo</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/categorias/">Categorías</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/ventas/">Ventas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="http://localhost:3000">Home</a></li>
                     </ul>
                 </div>
             </div>
@@ -133,6 +121,33 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        <!-- Controles de Paginación -->
+        <div class="d-flex justify-content-center mt-4">
+            <nav>
+                <ul class="pagination">
+                    {% if productos.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ productos.previous_page_number }}" aria-label="Anterior">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% for num in productos.paginator.page_range %}
+                    <li class="page-item {% if productos.number == num %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endfor %}
+                    {% if productos.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ productos.next_page_number }}" aria-label="Siguiente">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
 
         <a href="/productos/nuevo/" class="btn btn-success mt-3">Agregar nuevo producto</a>
     </div>

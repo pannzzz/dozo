@@ -46,12 +46,29 @@ def registro(request):
             'form': form
         })
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import CustomUser
+from .forms import CustomUserChangeForm
+
+# Mostrar usuarios con paginación
 def mostrar_user(request):
-    users = CustomUser.objects.all()
+    users_list = CustomUser.objects.all()
+    page = request.GET.get('page', 1)  # Obtener el número de página de los parámetros GET
+    paginator = Paginator(users_list, 10)  # Mostrar 10 usuarios por página
+
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)  # Si la página no es un número, mostrar la primera página
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)  # Si está fuera de rango, mostrar la última página
+
     return render(request, 'mostrar_user.html', {
         'users': users
     })
 
+# Editar un usuario
 def editar_user(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
     if request.method == 'POST':
@@ -66,6 +83,7 @@ def editar_user(request, user_id):
         'user': user
     })
 
+# Eliminar un usuario
 def eliminar_user(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
     if request.method == 'POST':
@@ -74,6 +92,7 @@ def eliminar_user(request, user_id):
     return render(request, 'eliminar_user.html', {
         'user': user
     })
+
 
 
 @csrf_exempt
@@ -121,10 +140,24 @@ def logout(request):
 
 
 
-# Producto Views
-# Mostrar productos
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Producto
+from .forms import ProductoForm
+
+# Mostrar productos con paginación
 def mostrar_producto(request):
-    productos = Producto.objects.all()
+    productos_list = Producto.objects.all()
+    page = request.GET.get('page', 1)  # Obtener el número de página de los parámetros GET
+    paginator = Paginator(productos_list, 10)  # Mostrar 10 productos por página
+
+    try:
+        productos = paginator.page(page)
+    except PageNotAnInteger:
+        productos = paginator.page(1)  # Si la página no es un número, mostrar la primera página
+    except EmptyPage:
+        productos = paginator.page(paginator.num_pages)  # Si está fuera de rango, mostrar la última página
+
     return render(request, 'productos/producto_list.html', {
         'productos': productos
     })
@@ -196,6 +229,7 @@ def eliminar_producto(request, producto_id):
     return render(request, 'productos/producto_delete.html', {
         'producto': producto
     })
+
 
 
 # Categoria Views
@@ -608,19 +642,26 @@ class VentaAPIView(APIView):
 
 
 from django.shortcuts import render
+from django.core.paginator import Paginator
 from django.db.models import Sum, F, Min, Max
 from .models import Venta, VentaProducto, Producto
+from django.db.models.functions import TruncMonth, TruncDay
 
 def ventas_view(request):
     # Recuperar todas las ventas con sus productos
     ventas = Venta.objects.select_related('usuario', 'estado').prefetch_related('productos')
+
+    # Paginación
+    paginator = Paginator(ventas, 10)  # Mostrar 10 ventas por página
+    page_number = request.GET.get('page')
+    ventas_paginadas = paginator.get_page(page_number)
 
     # Obtener datos para el gráfico de productos más vendidos
     productos_mas_vendidos = (
         VentaProducto.objects
         .values('producto__titulo')
         .annotate(total_vendido=Sum(F('cantidad')))
-        .order_by('-total_vendido')[:10]  # Los 10 productos más vendidos
+        .order_by('-total_vendido')[:10]
     )
 
     # Producto más vendido
@@ -653,14 +694,32 @@ def ventas_view(request):
     # Calcular las ganancias por fecha
     ganancias = (
         Venta.objects
-        .values('fecha_venta__date')  # Agrupar por fecha
+        .values('fecha_venta__date')
         .annotate(total_ganancias=Sum('total'))
         .order_by('fecha_venta__date')
     )
 
+    # Ventas diarias
+    ventas_diarias = (
+        Venta.objects
+        .annotate(dia=TruncDay('fecha_venta'))
+        .values('dia')
+        .annotate(total_ventas=Sum('total'))
+        .order_by('dia')
+    )
+
+    # Ventas mensuales
+    ventas_mensuales = (
+        Venta.objects
+        .annotate(mes=TruncMonth('fecha_venta'))
+        .values('mes')
+        .annotate(total_ventas=Sum('total'))
+        .order_by('mes')
+    )
+
     # Contexto para pasar a la plantilla
     context = {
-        'ventas': ventas,
+        'ventas': ventas_paginadas,  # Paginación aplicada aquí
         'productos_mas_vendidos': productos_mas_vendidos,
         'producto_mas_vendido': producto_mas_vendido,
         'producto_menos_vendido': producto_menos_vendido,
@@ -668,7 +727,7 @@ def ventas_view(request):
         'producto_mas_barato': producto_mas_barato,
         'subtotal': subtotal,
         'ganancias': ganancias,
+        'ventas_diarias': ventas_diarias,
+        'ventas_mensuales': ventas_mensuales,
     }
     return render(request, 'ventas.html', context)
-
-
