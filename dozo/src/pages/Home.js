@@ -6,19 +6,19 @@ import PickUpSectionComponent from '../components/PickUpSectionComponent';
 import HowToUseSectionComponent from '../components/HowToUseSectionComponent'; // Importa la sección How to Use
 import CategoryComponent from '../components/CategoryComponent';
 import FooterComponent from '../components/FooterComponent';
-
-
+import FloatingButton from '../components/FloatingButton'; // Importa el botón flotante
 
 const HomePage = () => {
     return (
         <div>
-                <Navbar />
+            <Navbar />
             <CarouselComponent />
             <NewsSectionComponent />
             <PickUpSectionComponent />
             <HowToUseSectionComponent />
-            <CategoryComponent /> 
+            <CategoryComponent />
             <FooterComponent />
+            <FloatingButton /> {/* Botón flotante agregado */}
         </div>
     );
 };

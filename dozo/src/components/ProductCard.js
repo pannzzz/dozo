@@ -33,8 +33,8 @@ const ProductCardComponent = ({ onProductCountChange }) => {
     // Aplicar filtros a los productos
     useEffect(() => {
         if (filters) {
-            const { prices = [], categories = [], search } = filters;
-
+            const { prices = [], categories = [], search = '' } = filters; // Aseguramos que search sea una cadena
+    
             const filtered = productos.filter((producto) => {
                 const matchesPrice =
                     prices.length > 0
@@ -44,7 +44,7 @@ const ProductCardComponent = ({ onProductCountChange }) => {
                                   producto.precio <= range.max
                           )
                         : true;
-
+    
                 const matchesCategory =
                     categories.length > 0
                         ? categories.some(
@@ -53,14 +53,14 @@ const ProductCardComponent = ({ onProductCountChange }) => {
                                   category.toLowerCase()
                           )
                         : true;
-
-                const matchesSearch = search
+    
+                const matchesSearch = typeof search === 'string' && search.trim()
                     ? producto.titulo.toLowerCase().includes(search.toLowerCase())
                     : true;
-
+    
                 return matchesPrice && matchesCategory && matchesSearch;
             });
-
+    
             setFilteredProducts(filtered);
             setVisibleProducts(filtered.slice(0, PRODUCTS_INITIAL));
             setShowAll(false);
@@ -71,6 +71,7 @@ const ProductCardComponent = ({ onProductCountChange }) => {
             onProductCountChange?.(productos.length); // Total sin filtros
         }
     }, [filters, productos, onProductCountChange]);
+    
 
     // Alternar entre mostrar más o menos productos
     const handleToggleShow = () => {
