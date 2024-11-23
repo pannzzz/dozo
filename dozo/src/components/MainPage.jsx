@@ -36,6 +36,13 @@ const MainPage = () => {
         return <p>Error al cargar el perfil del usuario.</p>;
     }
 
+    const handleLogout = () => {
+        // Eliminar datos del usuario de localStorage
+        localStorage.clear();
+        setUser(null); // Actualizar estado del usuario
+        window.location.reload(); // Opcional, para recargar la página
+    };
+
     return (
         <>
             <Navbar initialScrolled={true} />
@@ -188,7 +195,7 @@ const MainPage = () => {
                     {/* Logout */}
                     <div className="box_btn5">
                         <p className="btn5">
-                            <a href="/account/logout">Cerrar sesión</a>
+                            <a href="/" onClick={handleLogout}>Cerrar sesión</a>
                         </p>
                         <p className="btn6">
                             <a href="/a/p/customer/delete">Haga clic aquí para</a> darse de baja.
