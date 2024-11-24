@@ -102,6 +102,7 @@ const Formulario = () => {
                 password: formData.contraseña,
                 first_name: formData.nombre,
                 last_name: formData.apellido,
+                telefono: formData.telefono, // Nuevo campo de telefono
                 department: formData.departamento,
                 city: formData.ciudad,
                 address: formData.direccion,
@@ -126,6 +127,7 @@ const Formulario = () => {
                             confirmarContraseña: '',
                             nombre: '',
                             apellido: '',
+                            telefono:  '',
                             departamento: '',
                             ciudad: '',
                             direccion: '',
@@ -214,6 +216,17 @@ const Formulario = () => {
                     {errors.apellido && <p className="error-message">{errors.apellido}</p>}
                 </div>
                 <div className="item">
+                    <label className="caption">Telefono*</label>
+                    <input
+                        type="text"
+                        name="telefono"
+                        value={formData.telefono}
+                        onChange={handleChange}
+                        className="frm"
+                    />
+                    {errors.apellido && <p className="error-message">{errors.apellido}</p>}
+                </div>
+                <div className="item">
                     <label className="caption">Departamento*</label>
                     <select
                         name="departamento"
@@ -271,7 +284,7 @@ const Formulario = () => {
                 <div className="box_action">
                     <button type="submit" className="btn_submit">Registrarse</button>
                 </div>
-            </form>
+                </form>
         </div>
     );
 };
