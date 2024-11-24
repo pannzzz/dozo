@@ -71,7 +71,7 @@
 
 .save-button {
     padding: 12px 20px;
-    background-color: #98dbc6;
+    background-color: #000000;
     border: none;
     border-radius: 8px;
     color: #fff;
@@ -84,26 +84,57 @@
 }
 
 .save-button:hover {
-    background-color: #76b6a9;
+    background-color: #dad8d8;
+    color: #000000;
+    border: solid 1px black;
     transform: scale(1.02);
 }
 
-.success-message {
-    color: #4caf50;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 10px;
+/* Modal estilo cómico */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 
-.error-message {
-    color: #f44336;
-    font-weight: bold;
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
     text-align: center;
-    margin-top: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    animation: zoomIn 1.0s ease;
+    
 }
 
-.loading-message {
-    text-align: center;
-    color: #666;
-    font-size: 1.2rem;
+.modal-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.modal-text {
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Animación estilo cómico */
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1
+    }
 }
