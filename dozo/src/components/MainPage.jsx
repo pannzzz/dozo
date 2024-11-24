@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import "../styles/MainPage.css";
 import Navbar from "../components/Navbar";
 import FooterComponent from "../components/FooterComponent";
-import { Link } from 'react-router-dom';
-
+import pedidosImage from "../assets/pedidos.jpg";
+import { Link, useNavigate } from "react-router-dom";
 
 const MainPage = () => {
     const [user, setUser] = useState(null); // Estado para almacenar la información del usuario
+    const [orders, setOrders] = useState([]); // Estado para almacenar los pedidos
     const [loading, setLoading] = useState(true); // Estado para manejar la carga
+    const [loadingOrders, setLoadingOrders] = useState(true); // Estado para manejar la carga de pedidos
+    const navigate = useNavigate(); // Hook para redirigir a otras rutas
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -27,7 +30,25 @@ const MainPage = () => {
             }
         };
 
+        const fetchUserOrders = async () => {
+            try {
+                const response = await fetch("http://localhost:8000/api/user/orders/", {
+                    credentials: "include", // Incluir cookies para mantener la sesión
+                });
+                if (!response.ok) {
+                    throw new Error("Error al obtener el historial de pedidos.");
+                }
+                const data = await response.json();
+                setOrders(data.pedidos || []);
+            } catch (error) {
+                console.error("Error al cargar los pedidos:", error);
+            } finally {
+                setLoadingOrders(false);
+            }
+        };
+
         fetchUserProfile();
+        fetchUserOrders();
     }, []);
 
     if (loading) {
@@ -37,6 +58,10 @@ const MainPage = () => {
     if (!user) {
         return <p>Error al cargar el perfil del usuario.</p>;
     }
+
+    const handleMoreDetails = (id) => {
+        navigate(`/detalles-pedido/${id}`);
+    };
 
     const handleLogout = () => {
         // Eliminar datos del usuario de localStorage
@@ -55,11 +80,11 @@ const MainPage = () => {
                     <a href="/minpage" className="breadcrumb-moremain"> Mi página</a>
                 </div>
 
-        {/* Main Section */}
-        <section className="add-sectionGeneral narrow">
-            <div className="add-l-inner bgw box_mv contact">
-            <h2 className="add-sectionTitle aos-init add-is-active" >
-                <span className="add-sectionTitle__text-02">
+                {/* Main Section */}
+                <section className="add-sectionGeneral narrow">
+                    <div className="add-l-inner bgw box_mv contact">
+                        <h2 className="add-sectionTitle aos-init add-is-active">
+                        <span className="add-sectionTitle__text-02">
                 <svg
                     className="add-js-svgTitle"
                     width="237.25"
@@ -95,11 +120,10 @@ const MainPage = () => {
                     {/* Continuar agregando los otros paths aquí */}
                 </svg>
                 </span>
-
-                <span className="add-sectionTitle__text-03">Mi página</span>
-            </h2>
-            </div>
-        </section>
+                            <span className="add-sectionTitle__text-02">Mi página</span>
+                        </h2>
+                    </div>
+                </section>
 
                 {/* Wrapper */}
                 <div className="wrp_mypage">
@@ -124,31 +148,30 @@ const MainPage = () => {
                                                 <p className="txtx">{`${user.first_name} ${user.last_name}`}</p>
                                             </li>
                                             <li className="fol">
-                                                <p className="caption">Telefono</p>
+                                                <p className="caption">Teléfono</p>
                                                 <p className="txtx">{`${user.telefono}`}</p>
                                             </li>
                                             <li className="fol">
                                                 <p className="caption">Departamento</p>
-                                                <p className="txtx">{`${user.department}`}</p> {/* Puedes actualizar este dato si está en tu modelo */}
+                                                <p className="txtx">{`${user.department}`}</p>
                                             </li>
                                             <li className="fol">
                                                 <p className="caption">Ciudad</p>
-                                                <p className="txtx">{`${user.city}`}</p> {/* Actualízalo si tienes este campo */}
+                                                <p className="txtx">{`${user.city}`}</p>
                                             </li>
                                             <li className="fol">
-                                                <p className="caption">Codigo postal</p>
+                                                <p className="caption">Código postal</p>
                                                 <p className="txtx">{user.postal_code}</p>
                                             </li>
                                             <li className="fol">
                                                 <p className="caption">Boletín de noticias por correo electrónico</p>
-                                                <p className="txtx">Recibir</p> {/* Actualízalo según tus datos */}
+                                                <p className="txtx">Recibir</p>
                                             </li>
                                         </ul>
                                     </div>
                                     <div className="btn">
                                         <p className="btn">
                                             <Link to="/edituser" className="btn_black_border hoverBtn">Edita tu información</Link>
-
                                         </p>
                                         <p className="btn">
                                             <a href="/password" className="btn_black_border hoverBtn">
@@ -157,7 +180,6 @@ const MainPage = () => {
                                         </p>
                                     </div>
                                 </div>
-
                                 <h3 className="info_direccion">Información de dirección predeterminada</h3>
                                 <div className="box_bottom">
                                     <div className="info">
@@ -170,29 +192,73 @@ const MainPage = () => {
                         </div>
                     </section>
 
-
-                    {/* Order History */}
-                    <section className="con_mypage_block4">
-                        <h2 className="st">
-                            <span className="txt">Historial de pedidos</span>
-                            <span className="icon"></span>
-                        </h2>
-                        <div className="box_mypage4">
-                            <div className="box_his">
-                                <div className="box_table">
-                                    <p>Todavía no he finalizado mi pedido.</p>
-                                </div>
+{/* Order History */}
+<section className="con_mypage_block4">
+    <h2 className="st">
+        <span className="txt">Historial de pedidos</span>
+        <span className="icon"></span>
+    </h2>
+    <div className="box_mypage4">
+        <div className="box_his">
+            {loadingOrders ? (
+                <p>Cargando pedidos...</p>
+            ) : orders.length === 0 ? (
+                <p>No tienes pedidos realizados.</p>
+            ) : (
+                orders.slice(0, 3).map((order) => ( // Mostrar solo los 3 últimos pedidos
+                    <div key={order.id} className="order-card">
+                        <div className="order-card-left">
+                            <img
+                                src={pedidosImage} // Reemplaza por la ruta correcta
+                                alt="Pedido"
+                                className="order-image"
+                            />
+                            <div className="order-details">
+                                <p>
+                                    <strong>Pedido ID:</strong> {order.id}
+                                </p>
+                                <p>
+                                    <strong>Estado:</strong> {order.estado}
+                                </p>
+                                <p>
+                                    <strong>Fecha:</strong> {order.fecha_venta}
+                                </p>
+                                <p>
+                                    <strong>Total:</strong> {order.total} COP
+                                </p>
                             </div>
                         </div>
-                    </section>
+                        <div className="order-card-right">
+                            <p>{order.productos.length} producto{order.productos.length > 1 ? 's' : ''}</p>
+                            <button
+                                className="btn_black_border hoverBtn"
+                                onClick={() => handleMoreDetails(order.id)}
+                            >
+                                Más Detalles
+                            </button>
+                        </div>
+                    </div>
+                ))
+            )}
+        </div>
+        {orders.length > 3 && ( // Mostrar el botón solo si hay más de 3 pedidos
+            <div className="view-more-orders">
+                <button
+                    className="vermas"
+                    onClick={() => navigate("/mispedidos")} // Redirigir a la página de todos los pedidos
+                >
+                    Ver más pedidos
+                </button>
+            </div>
+        )}
+    </div>
+</section>
+
 
                     {/* Logout */}
                     <div className="box_btn5">
                         <p className="btn5">
                             <a href="/" onClick={handleLogout}>Cerrar sesión</a>
-                        </p>
-                        <p className="btn6">
-                            <a href="/a/p/customer/delete">Haga clic aquí para</a> darse de baja.
                         </p>
                     </div>
                 </div>

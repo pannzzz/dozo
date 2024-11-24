@@ -14,14 +14,23 @@ def registro(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
-            # Verifica si las contraseñas coinciden
             if form.cleaned_data['password1'] == form.cleaned_data['password2']:
                 try:
-                    # Guarda el usuario usando el formulario
                     user = form.save()
-                    # Inicia sesión automáticamente
                     login(request, user)
-                    # Redirige a la vista deseada después del registro
+
+                    # Enviar correo de bienvenida
+                    try:
+                        send_mail(
+                            'Bienvenido a Dozo',
+                            f'Hola {user.first_name}, gracias por registrarte en Dozo. ¡Esperamos que disfrutes de tu experiencia!',
+                            'panzzz956@gmail.com',  # Remitente
+                            [user.email],  # Receptor
+                            fail_silently=False,
+                        )
+                    except Exception as e:
+                        print(f"Error al enviar correo de bienvenida: {str(e)}")
+
                     return redirect('mostrar_user')
                 except IntegrityError:
                     return render(request, 'registrouser.html', {
@@ -40,11 +49,9 @@ def registro(request):
             })
     else:
         form = CustomUserCreationForm()
-        mytitle = "Registro Nuevos Usuarios"
-        return render(request, 'registrouser.html', {
-            'title': mytitle,
-            'form': form
-        })
+        return render(request, 'registrouser.html', {'form': form})
+    
+    
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
@@ -93,6 +100,12 @@ def eliminar_user(request, user_id):
 
 
 
+from django.core.mail import send_mail
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import login, get_user_model
+from django.http import JsonResponse
+import json
+
 @csrf_exempt
 def loginzzz(request):
     if request.method == "POST":
@@ -116,6 +129,18 @@ def loginzzz(request):
             # Iniciar sesión
             login(request, user)
 
+            # Enviar correo de inicio de sesión exitoso
+            try:
+                send_mail(
+                    'Inicio de sesión exitoso',
+                    f'Hola {user.first_name}, has iniciado sesión en Dozo con éxito.',
+                    'panzzz956@gmail.com',  # Remitente
+                    [user.email],        # Receptor
+                    fail_silently=False,
+                )
+            except Exception as e:
+                return JsonResponse({'error': f'Error al enviar el correo: {str(e)}'}, status=500)
+
             # Responder con detalles del usuario
             return JsonResponse({
                 'message': 'Inicio de sesión exitoso',
@@ -130,6 +155,7 @@ def loginzzz(request):
             return JsonResponse({'error': 'Datos inválidos'}, status=400)
 
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
 
 
 def logout(request):
@@ -376,54 +402,59 @@ def mostrar_venta(request):
 def crear_venta_api(request):
     if request.method == 'POST':
         try:
-            # Parsear el cuerpo de la solicitud como JSON
             data = json.loads(request.body)
-            print("Datos recibidos:", data)  # Para depuración
 
-            # Validar la estructura del payload
             if not data.get('user') or not data.get('cart'):
                 return JsonResponse({'error': 'El payload debe contener "user" y "cart".'}, status=400)
 
             user_data = data['user']
             cart = data['cart']
 
-            # Validar y obtener el usuario
             try:
                 usuario = CustomUser.objects.get(email=user_data.get('email'))
             except CustomUser.DoesNotExist:
                 return JsonResponse({'error': 'Usuario no encontrado.'}, status=404)
 
-            # Crear la venta
             estado, created = Estado.objects.get_or_create(nombre="Pendiente")
-            total = sum(float(item['precio']) * item['cantidad'] for item in cart)  # Convertir a float
-            venta = Venta.objects.create(
-                usuario=usuario,
-                total=total,
-                estado=estado
-            )
+            total = sum(float(item['precio']) * item['cantidad'] for item in cart)
+            venta = Venta.objects.create(usuario=usuario, total=total, estado=estado)
 
-            # Asociar productos con la venta
             for item in cart:
                 try:
                     producto = Producto.objects.get(id=item['id'])
                     VentaProducto.objects.create(
                         venta=venta,
                         producto=producto,
-                        precio_unidad=float(producto.precio),  # Convertir precio a float
+                        precio_unidad=float(producto.precio),
                         cantidad=item['cantidad']
                     )
                 except Producto.DoesNotExist:
                     return JsonResponse({'error': f'Producto con ID {item["id"]} no encontrado.'}, status=404)
+
+            # Enviar correo de confirmación de pedido
+            try:
+                productos_detalle = "\n".join(
+                    f"- {item['cantidad']}x {item['titulo']} (${item['precio']} c/u)" for item in cart
+                )
+                send_mail(
+                    'Confirmación de Pedido - Dozo',
+                    f'Hola {usuario.first_name}, tu pedido ha sido confirmado.\n\n'
+                    f'Detalles del pedido:\n{productos_detalle}\n\n'
+                    f'Total: ${total}\n\nGracias por tu compra en Dozo.',
+                    'panzzz956@gmail.com',
+                    [usuario.email],
+                    fail_silently=False,
+                )
+            except Exception as e:
+                print(f"Error al enviar correo de confirmación de pedido: {str(e)}")
 
             return JsonResponse({'message': 'Venta creada exitosamente.', 'venta_id': venta.id}, status=201)
 
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Error al parsear JSON.'}, status=400)
         except Exception as e:
-            print("Error interno:", str(e))  # Para depuración en consola
             return JsonResponse({'error': f'Error interno: {str(e)}'}, status=500)
 
-    # Retornar error si el método no es POST
     return JsonResponse({'error': 'Método no permitido.'}, status=405)
 
 
@@ -958,3 +989,34 @@ def change_password(request):
 
 
 
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from .models import Venta, VentaProducto
+
+@login_required
+def listar_pedidos_usuario(request):
+    try:
+        usuario = request.user  # Obtener el usuario autenticado
+        ventas = Venta.objects.filter(usuario=usuario).select_related('estado')
+
+        pedidos = [
+            {
+                "id": venta.id,
+                "fecha_venta": venta.fecha_venta.strftime('%Y-%m-%d %H:%M:%S'),
+                "estado": venta.estado.nombre,
+                "total": float(venta.total),
+                "productos": [
+                    {
+                        "titulo": vp.producto.titulo,
+                        "cantidad": vp.cantidad,
+                        "precio": float(vp.precio_unidad),
+                    }
+                    for vp in VentaProducto.objects.filter(venta=venta)
+                ]
+            }
+            for venta in ventas
+        ]
+
+        return JsonResponse({"pedidos": pedidos}, status=200)
+    except Exception as e:
+        return JsonResponse({"error": f"Error al obtener pedidos: {str(e)}"}, status=500)

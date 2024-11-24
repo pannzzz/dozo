@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom'; // Importar useNavigate
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/pagos.css';
 
 const Pagos = () => {
@@ -17,23 +17,35 @@ const Pagos = () => {
         ciudad: '',
         direccion: '',
     });
-
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(true); // Estado para la carga
+    const [showModal, setShowModal] = useState(false); // Estado para mostrar el modal
 
     useEffect(() => {
-        const userData = JSON.parse(localStorage.getItem('user')); // Cargar datos del usuario desde localStorage
-        if (userData) {
-            setFormData({
-                email: userData.email || '',
-                telefono: userData.telefono || '',
-                apellido: userData.apellido || '',
-                nombre: userData.nombre || '',
-                codigoPostal: userData.codigoPostal || '',
-                ciudad: userData.ciudad || '',
-                direccion: userData.direccion || '',
-            });
-        }
+        const fetchUserProfile = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/user/profile/', {
+                    withCredentials: true, // Incluir cookies para la autenticación
+                });
+                setFormData({
+                    email: response.data.email || '',
+                    telefono: response.data.telefono || '',
+                    apellido: response.data.last_name || '',
+                    nombre: response.data.first_name || '',
+                    codigoPostal: response.data.postal_code || '',
+                    ciudad: response.data.city || '',
+                    direccion: response.data.address || '',
+                });
+            } catch (error) {
+                console.error('Error al cargar el perfil:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+    
+        fetchUserProfile();
     }, []);
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -87,14 +99,21 @@ const Pagos = () => {
                 },
             });
             console.log('Pedido enviado correctamente:', response.data);
-            alert('Pedido confirmado correctamente');
-            // Redirigir a la página de MisPedidos
-            navigate('/mispedidos');
+            setShowModal(true); // Mostrar el modal
         } catch (error) {
             console.error('Error al enviar el pedido:', error);
             alert('Ocurrió un error al confirmar el pedido. Inténtelo de nuevo.');
         }
     };
+
+    const handleModalClose = () => {
+        setShowModal(false);
+        navigate('/mispedidos'); // Redirigir al cerrar el modal
+    };
+
+    if (loading) {
+        return <div className="pagos-page"><p>Cargando datos del usuario...</p></div>;
+    }
 
     const total = cart.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
 
@@ -217,6 +236,19 @@ const Pagos = () => {
                     <h3>$ {total.toLocaleString('es-CO')}</h3>
                 </div>
             </aside>
+
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+            <h2>¡Pedido Confirmado!</h2>
+            <p>Tu pedido ha sido confirmado exitosamente.</p>
+            <button className="modal-close-button" onClick={handleModalClose}>
+                Ir a Mis Pedidos
+            </button>
+        </div>
+    </div>
+)}
+
         </div>
     );
 };

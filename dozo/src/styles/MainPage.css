@@ -412,3 +412,75 @@
     display: block;
 }
 
+.order-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background-color: #f9f9f9;
+}
+
+.order-card-left {
+    display: flex;
+    align-items: center;
+}
+
+.order-image {
+    width: 80px;
+    height: 80px;
+    margin-right: 16px;
+}
+
+.order-details p {
+    margin: 4px 0;
+}
+
+.order-card-right {
+    text-align: center;
+}
+
+.order-card-right .btn_black_border {
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    border: 1px solid #000;
+    border-radius: 20px;
+    background-color: #040404;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex; /* Activar flexbox */
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    text-align: center; /* Asegurar alineación de texto */
+}
+
+.order-card-right .btn_black_border:hover {
+    background-color: #4d4b4b; /* Color de fondo al pasar el cursor */
+}
+
+
+.vermas {
+    box-sizing: border-box;
+    text-decoration: none;
+    background: #000;
+    border: 0;
+    border-radius: 60px;
+    color: #fff;
+    display: block; /* Cambiar a block para que funcione con margin auto */
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+    max-width: 445px; /* Define el máximo ancho */
+    cursor: pointer;
+    transition: none;
+    font-size: 17px;
+    height: 50px;
+    line-height: 50px;
+    margin: 20px auto; /* Centrar horizontalmente y mantener margen superior */
+}
+
+

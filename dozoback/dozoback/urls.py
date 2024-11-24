@@ -27,6 +27,7 @@ from Dozo.views import user_profile
 from Dozo.views import productos_mas_vendidos
 from Dozo.views import verify_current_password, change_password
 from Dozo.views import logout_all_sessions
+from Dozo.views import listar_pedidos_usuario
 
 
 urlpatterns = [
@@ -74,6 +75,8 @@ urlpatterns = [
     path('api/user/profile/edit/', views.edit_user_profile, name='edit_user_profile'),
     path("api/verify-current-password/", verify_current_password, name="verify_current_password"),
     path("api/change-password/", change_password, name="change_password"),
+
+    path('api/user/orders/', listar_pedidos_usuario, name='listar_pedidos_usuario'),
 ]
 if settings.DEBUG:  # Solo para desarrollo
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
