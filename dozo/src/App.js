@@ -15,6 +15,7 @@ import { FilterProvider } from './components/FilterContext'; // Importa el conte
 import DetallesPedido from './pages/DetallesPedido';
 import MinPage from './components/MainPage';
 import Edituser from './components/EditUserComponent'
+import Password from './components/ChangePasswordComponent'
 import './App.css';
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
               <Route path="/detalles-pedido/:id" element={<DetallesPedido />} />
               <Route path="/minpage" element={<MinPage />} />
               <Route path="/edituser" element={<Edituser />} /> {/* Ruta para editar usuario */}
+              <Route path="/password" element={<Password />} /> {/* Ruta para cambiar contraseña */}
 
             </Routes>
           </div>

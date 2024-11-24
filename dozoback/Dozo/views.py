@@ -48,8 +48,6 @@ def registro(request):
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import CustomUser
-from .forms import CustomUserChangeForm
 
 # Mostrar usuarios con paginación
 def mostrar_user(request):
@@ -138,6 +136,34 @@ def logout(request):
     auth_logout(request)
     return redirect('login')
 
+from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import logout
+import json
+
+@csrf_exempt
+def logout_all_sessions(request):
+    if request.method == "POST":
+        try:
+            user = request.user
+            if user.is_authenticated:
+                # Cerrar todas las sesiones activas del usuario
+                user_sessions = Session.objects.filter(session_key__in=[
+                    session.session_key for session in Session.objects.all()
+                    if str(session.get_decoded().get('_auth_user_id')) == str(user.id)
+                ])
+                user_sessions.delete()
+
+                # Cierra la sesión actual
+                logout(request)
+
+                return JsonResponse({"message": "Sesiones cerradas exitosamente."}, status=200)
+            return JsonResponse({"error": "Usuario no autenticado."}, status=401)
+        except Exception as e:
+            return JsonResponse({"error": f"Error al cerrar sesiones: {str(e)}"}, status=500)
+    return JsonResponse({"error": "Método no permitido."}, status=405)
 
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -860,3 +886,75 @@ def edit_user_profile(request):
         except Exception as e:
             return JsonResponse({'error': f'Error al actualizar el perfil: {str(e)}'}, status=500)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+
+from django.contrib.auth import authenticate
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import check_password
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt
+@login_required
+def verify_current_password(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            current_password = data.get("current_password")
+            user = request.user
+
+            if not check_password(current_password, user.password):
+                return JsonResponse({"error": "Contraseña incorrecta"}, status=400)
+
+            return JsonResponse({"message": "Contraseña verificada correctamente"}, status=200)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    return JsonResponse({"error": "Método no permitido"}, status=405)
+
+
+
+from django.contrib.auth.hashers import make_password
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt
+@login_required
+def change_password(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            new_password = data.get("new_password")
+            user = request.user
+
+            user.set_password(new_password)
+            user.save()
+
+            # Enviar notificación por correo
+            send_mail(
+                "Cambio de Contraseña en Dozo",
+                f"Hola {user.first_name}, tu contraseña ha sido cambiada exitosamente.",
+                "noreply@dozo.com",
+                [user.email],
+                fail_silently=False,
+            )
+
+            return JsonResponse({"message": "Contraseña cambiada correctamente"}, status=200)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    return JsonResponse({"error": "Método no permitido"}, status=405)
+
+
+

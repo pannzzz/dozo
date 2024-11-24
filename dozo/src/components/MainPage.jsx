@@ -151,7 +151,7 @@ const MainPage = () => {
 
                                         </p>
                                         <p className="btn">
-                                            <a href="/a/p/customer/password" className="btn_black_border hoverBtn">
+                                            <a href="/password" className="btn_black_border hoverBtn">
                                                 Cambia tu contraseña
                                             </a>
                                         </p>
@@ -164,13 +164,6 @@ const MainPage = () => {
                                         <div className="address">
                                             <p className="line1">{user.address || "No hay información de dirección registrada"}</p>
                                         </div>
-                                    </div>
-                                    <div className="btns">
-                                        <p className="btn">
-                                            <a href="/account/addresses" className="btn_black_border hoverBtn">
-                                                Lista de direcciones
-                                            </a>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
