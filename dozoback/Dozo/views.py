@@ -744,3 +744,44 @@ def user_profile(request):
     user = request.user
     serializer = CustomUserSerializer(user)
     return Response(serializer.data)
+
+
+from django.http import JsonResponse
+from .models import VentaProducto
+
+def productos_mas_vendidos(request):
+    try:
+        # Obtener los productos vendidos (sin total vendido)
+        productos_vendidos = (
+            VentaProducto.objects
+            .values(
+                'producto__id',
+                'producto__titulo',
+                'producto__precio',
+                'producto__imagen',
+                'producto__descripcion'
+            )
+            .distinct()  # Elimina duplicados si se da el caso
+        )
+
+        # Serializar los datos
+        productos_data = [
+            {
+                "id": producto['producto__id'],
+                "titulo": producto['producto__titulo'],
+                "precio": float(producto['producto__precio']),  # Convertir Decimal a float
+                "imagen": producto['producto__imagen'] if producto['producto__imagen'] else "default.png",
+                "descripcion": producto['producto__descripcion'],
+            }
+            for producto in productos_vendidos
+        ]
+
+        # Asegurarnos de que las URLs de las imágenes sean accesibles
+        for producto in productos_data:
+            if producto['imagen'] != "default.png":
+                producto['imagen'] = f"/media/{producto['imagen']}"  # Ruta completa para las imágenes
+
+        return JsonResponse({"productos": productos_data}, status=200)
+
+    except Exception as e:
+        return JsonResponse({"error": f"Error al obtener los productos más vendidos: {str(e)}"}, status=500)
