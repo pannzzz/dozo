@@ -1,0 +1,109 @@
+/* EditUser.css */
+.edit-user-container {
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 800px;
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 12px;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Breadcrumb */
+.breadcrumb-containeredit {
+    background-color: transparent;
+    font-size: 14px;
+    color: #666;
+    margin-top: 90px;
+    padding: 10px 70px;
+    display: flex;
+    gap: 5px;
+}
+
+.breadcrumb-containeredit a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.breadcrumb-containeredit a:hover {
+    text-decoration: underline;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #404040;
+    margin-bottom: 20px;
+}
+
+.edit-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #404040;
+}
+
+.form-input {
+    padding: 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #98dbc6;
+    box-shadow: 0 0 4px rgba(152, 219, 198, 0.6);
+}
+
+.save-button {
+    padding: 12px 20px;
+    background-color: #98dbc6;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 20px;
+}
+
+.save-button:hover {
+    background-color: #76b6a9;
+    transform: scale(1.02);
+}
+
+.success-message {
+    color: #4caf50;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: #f44336;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.loading-message {
+    text-align: center;
+    color: #666;
+    font-size: 1.2rem;
+}

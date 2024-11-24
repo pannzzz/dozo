@@ -67,6 +67,7 @@ urlpatterns = [
     path('api/pedidos/<int:id>/', PedidoDetailView.as_view(), name='pedido-detail'),
     path('api/user/profile/', user_profile, name='user_profile'),
     path('productos-mas-vendidos/', productos_mas_vendidos, name='productos_mas_vendidos'),
+    path('api/user/profile/edit/', views.edit_user_profile, name='edit_user_profile'),
 ]
 if settings.DEBUG:  # Solo para desarrollo
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

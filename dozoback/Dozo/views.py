@@ -785,3 +785,78 @@ def productos_mas_vendidos(request):
 
     except Exception as e:
         return JsonResponse({"error": f"Error al obtener los productos más vendidos: {str(e)}"}, status=500)
+
+
+
+from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+import json
+
+@login_required
+@csrf_exempt
+def edit_user_profile(request):
+    if request.method == 'PUT':
+        try:
+            user = request.user  # Obtén el usuario autenticado
+            data = json.loads(request.body)  # Obtén los datos de la solicitud
+            changes = []  # Lista para almacenar los cambios realizados
+
+            # Verifica y actualiza cada campo
+            if data.get('email') and data.get('email') != user.email:
+                changes.append(f"Correo: {user.email} → {data['email']}")
+                user.email = data['email']
+
+            if data.get('first_name') and data.get('first_name') != user.first_name:
+                changes.append(f"Nombre: {user.first_name} → {data['first_name']}")
+                user.first_name = data['first_name']
+
+            if data.get('last_name') and data.get('last_name') != user.last_name:
+                changes.append(f"Apellido: {user.last_name} → {data['last_name']}")
+                user.last_name = data['last_name']
+
+            if data.get('telefono') and data.get('telefono') != user.telefono:
+                changes.append(f"Teléfono: {user.telefono} → {data['telefono']}")
+                user.telefono = data['telefono']
+
+            if data.get('department') and data.get('department') != user.department:
+                changes.append(f"Departamento: {user.department} → {data['department']}")
+                user.department = data['department']
+
+            if data.get('city') and data.get('city') != user.city:
+                changes.append(f"Ciudad: {user.city} → {data['city']}")
+                user.city = data['city']
+
+            if data.get('postal_code') and data.get('postal_code') != user.postal_code:
+                changes.append(f"Código postal: {user.postal_code} → {data['postal_code']}")
+                user.postal_code = data['postal_code']
+
+            if data.get('address') and data.get('address') != user.address:
+                changes.append(f"Dirección: {user.address} → {data['address']}")
+                user.address = data['address']
+
+            user.save()  # Guarda los cambios en la base de datos
+
+            # Enviar correo al usuario
+            if changes:
+                message = (
+                    f"Hola {user.first_name},\n\n"
+                    "Tu información en Dozo ha sido actualizada con éxito. Estos son los cambios realizados:\n\n"
+                    + "\n".join(changes) +
+                    "\n\nSi no reconoces estos cambios, contacta con nuestro equipo de soporte inmediatamente.\n\n"
+                    "Gracias por usar nuestros servicios.\n\n"
+                    "El equipo de Dozo"
+                )
+                send_mail(
+                    subject="Información actualizada en Dozo",
+                    message=message,
+                    from_email=None,  # Usará DEFAULT_FROM_EMAIL
+                    recipient_list=[user.email],
+                    fail_silently=False,
+                )
+
+            return JsonResponse({'message': 'Perfil actualizado exitosamente.'}, status=200)
+        except Exception as e:
+            return JsonResponse({'error': f'Error al actualizar el perfil: {str(e)}'}, status=500)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)

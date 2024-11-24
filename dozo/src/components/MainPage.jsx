@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../styles/MainPage.css";
 import Navbar from "../components/Navbar";
 import FooterComponent from "../components/FooterComponent";
+import { Link } from 'react-router-dom';
+
 
 const MainPage = () => {
     const [user, setUser] = useState(null); // Estado para almacenar la información del usuario
@@ -50,7 +52,7 @@ const MainPage = () => {
                 {/* Breadcrumb */}
                 <div className="breadcrumb-containermain">
                     <a href="/" className="breadcrumb-moremain">Dozo</a> /
-                    <a href="/findgift" className="breadcrumb-moremain"> Mi página</a>
+                    <a href="/minpage" className="breadcrumb-moremain"> Mi página</a>
                 </div>
 
         {/* Main Section */}
@@ -145,9 +147,8 @@ const MainPage = () => {
                                     </div>
                                     <div className="btn">
                                         <p className="btn">
-                                            <a href="/a/p/customer/edit" className="btn_black_border hoverBtn">
-                                                Edita tu información
-                                            </a>
+                                            <Link to="/edituser" className="btn_black_border hoverBtn">Edita tu información</Link>
+
                                         </p>
                                         <p className="btn">
                                             <a href="/a/p/customer/password" className="btn_black_border hoverBtn">

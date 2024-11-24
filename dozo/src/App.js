@@ -14,6 +14,7 @@ import { CartProvider } from './components/CartContext';
 import { FilterProvider } from './components/FilterContext'; // Importa el contexto de filtros
 import DetallesPedido from './pages/DetallesPedido';
 import MinPage from './components/MainPage';
+import Edituser from './components/EditUserComponent'
 import './App.css';
 
 const App = () => {
@@ -35,6 +36,8 @@ const App = () => {
               <Route path="/mispedidos" element={<MisPedidos />} />
               <Route path="/detalles-pedido/:id" element={<DetallesPedido />} />
               <Route path="/minpage" element={<MinPage />} />
+              <Route path="/edituser" element={<Edituser />} /> {/* Ruta para editar usuario */}
+
             </Routes>
           </div>
         </Router>
