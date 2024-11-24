@@ -55,23 +55,52 @@
 
 .rankin-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1.5fr);
     gap: 20px;
-    margin: 0 auto;
+    margin: 0 60px;
     max-width: 1200px;
-    overflow: hidden;
-    position: relative;
 }
 
 .rankin-item {
+    list-style: none;
+    border: 0 solid;
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    tab-size: 4;
+    list-style: none;
+    border: 0 solid;
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: inherit;
+    text-decoration: none;
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 15px;
-    position: relative;
-    border-radius: 8px;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-    opacity: 1;
+    height: 100%;
+    font-size: var(--text-lg);
+    font-weight: 700;
+    line-height: 1.4444444444;
+    letter-spacing: 0.045em;
+    container-type: inline-size;
+}
+
+.add-goodsItem__number {
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    font-family: var(--font-en);
+    line-height: 1;
+    border-width: 0;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
 }
 
 /* Animaciones de deslizamiento */
@@ -137,106 +166,95 @@
 }
 
 .image-container {
-    color: inherit;
-    font-size: var(--text-lg);
-    font-weight: 700;
-    line-height: 1.4444444444;
-    letter-spacing: 0.045em;
-    border: 0 solid;
-    border-style: solid;
-    border-width: 0;
-    box-sizing: border-box;
-    transition: rotate 0.3s ease;
-    color: inherit;
-    font-size: var(--text-lg);
-    font-weight: 700;
-    line-height: 1.4444444444;
-    letter-spacing: 0.045em;
-    border: 0 solid;
-    border-style: solid;
-    border-width: 0;
-    box-sizing: border-box;
-    display: grid;
-    grid-template-areas: "main sub01" "main sub02" "main sub03";
-    grid-template-columns: 75% 1fr;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .rankin-image {
-    border: 1px solid black;
-    width: 240px; /* La imagen ocupa el 100% del contenedor */
-    height: 200px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    border-radius: 0;
-    margin-left: 0px;
+    transition: transform 0.4s ease;
 }
 
 .image-container:hover .rankin-image {
-        transform: rotate(-7deg);
+    transform: scale(1.05);
     }
 
-:root {
-    --color-text: #3a3a3a;
-    --color-text-rgb: 58, 58, 58;
-    --color-body-text: #333232;
-    --color-sale-text: #EA0606;
-    --color-small-button-text-border: #3a3a3a;
-    --color-text-field: #ffffff;
-    --color-text-field-text: #000000;
-    --color-btn-primary: #3a3a3a;
-    --color-btn-primary-darker: #212121;
-    --color-btn-primary-text: #ffffff;
-    --color-blankstate: rgba(51, 50, 50, 0.35);
-    --color-text-focus: #606060;
-    --color-bg: #ffffff;
-    --color-border: #ebebeb;
-    --font-weight-body--bold: 700;
-    --font-stack-body: Helvetica, 'Helvetica Neue', Arial, 'Lucida Grande', sans-serif;
-    --font-size-base: 15px;
-    --text-lg: 18px;
-    --text-xl: 20px;
-    --color-accent-yellow: #F3E84D;
-    --transition-duration: 0.3s;
-}
 
 .rankin-item-title {
-    font-size: var(--text-xl);
-    font-weight: bold;
-    color: var(--color-text);
-    text-align: left;
-    font-family: var(--font-stack-body);
+    list-style: none;
+    color: inherit;
     letter-spacing: 0.045em;
+    border: 0 solid;
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    margin: 0;
     display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    height: min-content;
     overflow: hidden;
     text-overflow: ellipsis;
     min-height: 52px;
     margin-top: 14px;
-    line-height: 1.4;
+    text-align: left;
+}
+
+.rankin_info {
+    list-style: none;
+    color: inherit;
+    font-size: var(--text-lg);
+    font-weight: 700;
+    line-height: 1.4444444444;
+    letter-spacing: 0.045em;
+    border: 0 solid;
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
 }
 
 .rankin-item-tag {
-    background-color: var(--color-accent-yellow);
-    color: var(--color-text);
-    font-size: var(--text-lg);
-    font-weight: bold;
-    padding: 6px 40px 4px 20px;
-    font-family: var(--font-stack-body);
+    font-weight: 800;
     letter-spacing: 0.045em;
-    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% -40%, calc(80% - 5px) 100%, 0 100%);
-    margin-top: 20px;
-    text-align: left;
-    display: inline-block;
-    line-height: 1.4;
+    width: 110px;
+    height: 54px;
+    font-size: 11px;
+    background: url("https://auth.dozo-gift.com/front/v1_1/images/common/category-bg.svg") no-repeat;
+    background-position: center;
+    background-size: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
 }
 
 .rankin-item-price {
+    list-style: none;
+    color: inherit;
     font-size: var(--text-lg);
-    font-weight: var(--font-weight-body--bold);
-    color: var(--color-text);
-    text-align: left;
-    margin: 5px 0;
+    font-weight: 700;
+    line-height: 1.4444444444;
     letter-spacing: 0.045em;
+    border: 0 solid;
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    margin-left: auto;
+    text-align: right;
 }
 
 .rankin-item-description {
@@ -256,17 +274,37 @@
 }
 
 .rankin-button {
-    background-color: black;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 25px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-    align-self: center;
+    list-style: none;
+    color: inherit;
+    font-size: var(--text-lg);
+    font-weight: 700;
+    line-height: 1.4444444444;
+    letter-spacing: 0.045em;
+    border: 0 solid;
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
     margin-top: auto;
+    tab-size: 4;
+    font-family: inherit;
+    list-style: none;
+    line-height: 1.4444444444;
+    letter-spacing: 0.045em;
+    border: 0 solid;
+    border-style: solid;
+    border-width: 0;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 39px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #000;
+    border-radius: 20px;
+    max-width: 162px;
+    font-size: 13px;
 }
 
 .rankin-button:hover {

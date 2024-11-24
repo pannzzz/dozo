@@ -73,6 +73,9 @@ const PickUpSectionComponent = () => {
             <ul className="rankin-grid">
                 {visibleItems.map((item, index) => (
                     <li key={item.id || index} className={`rankin-item ${animationClass}`}>
+                        <div class="add-goodsItem__number">
+                        <font _mstmutation="1" _msttexthash="30394" _msthash="553"><span _mstmutation="1" _istranslated="1">No.</span>  <span _mstmutation="1" _istranslated="1">1</span></font>
+                        </div>
                         <div className="image-container">
                             <img
                                 src={`http://localhost:8000/${item.imagen}`}
@@ -81,8 +84,10 @@ const PickUpSectionComponent = () => {
                             />
                         </div>
                         <div className="rankin-item-title">{item.titulo}</div>
+                        <div className='rankin_info'>
                         <div className="rankin-item-tag">{item.categoria?.nombre || 'Sin categoría'}</div>
                         <div className="rankin-item-price">${item.precio.toLocaleString('es-CO')} COP</div>
+                        </div>
                         <div className="rankin-item-description">{item.descripcion}</div>
                         <Link to={`/detalles/${item.id}`}>
                             <button className="rankin-button">Más detalles</button>
