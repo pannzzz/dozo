@@ -127,10 +127,10 @@ const EditUserComponent = () => {
 
             {/* Modal estilo cómico */}
             {successModal && (
-                <div className="modal">
+                <div className="modal-overlay">
                     <div className="modal-content">
                         <h3 className="modal-title">¡Tu Información fue actualizada exitosamente!</h3>
-                        <p className="modal-text">Serás redirigido automáticamente...</p>
+                        <p>Serás redirigido automáticamente...</p>
                     </div>
                 </div>
             )}
