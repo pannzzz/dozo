@@ -1,0 +1,226 @@
+/* General styles */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #5ec0a1;
+    height: 70px;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: #49a485;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+/* Table container styles */
+.table-container {
+    margin-top: 100px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-container h1 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table thead th {
+    background-color: #5ec0a1;
+    color: white;
+    font-size: 1rem;
+    padding: 10px;
+}
+
+table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+table tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.btn-sm {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-success {
+    background-color: #198754;
+    border: none;
+    display: inline-block;
+}
+
+.btn-success:hover {
+    background-color: #157347;
+}
+
+/* Pagination styles */
+.pagination .page-item .page-link {
+    color: #5ec0a1;
+    border: 1px solid #5ec0a1;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #5ec0a1;
+    color: white;
+    border: none;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #49a485;
+    color: white;
+}
+
+
+/* Footer styles */
+.footer-custom {
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    text-align: center;
+    padding: 20px 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border-top: 1px solid #333; /* Línea superior */
+}
+
+.footer-custom .footer-logo {
+    margin-bottom: 15px; /* Espaciado entre el logo y los enlaces */
+}
+
+.footer-custom .footer-logo img {
+    width: 100px; /* Ajusta el tamaño del logo */
+    max-width: 100%;
+}
+
+.footer-custom .footer-links p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.footer-custom .footer-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 14px;
+}
+
+.footer-custom .footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-custom .footer-bottom {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #aaa; /* Texto más tenue */
+}
+
+/* General Footer Styles */
+.footer-custom {
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    text-align: center;
+    padding: 70px 25px; /* Espaciado más amplio */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border-top: 2px solid #333; /* Línea superior */
+}
+
+/* Logo in Footer */
+/* Logo in Footer */
+.footer-logo img {
+    display: block;
+    margin: 0 auto 20px; /* Centra el logo y agrega espacio inferior */
+    width: 200px; /* Tamaño del logo aumentado */
+    max-width: 100%; /* Asegura responsividad */
+}
+
+
+/* Footer Links */
+.footer-links p {
+    margin: 10px 0;
+    line-height: 1.8; /* Espaciado entre líneas */
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #ccc; /* Color más claro al pasar el cursor */
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #aaa; /* Texto más tenue */
+}
+
