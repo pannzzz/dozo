@@ -64,6 +64,16 @@ const SideMenu = ({ closeMenu }) => {
                                     </a>
                                 </li>
 
+                                <li className="unu3">
+                                    <a href="/minpage" className="add-globalMenu__list01__link">
+                                        <img
+                                            src="https://auth.dozo-gift.com/front/v1_1/images/common/icon-brush.svg"
+                                            alt="Ícono de regalo" className="imagen-regalo"
+                                        />
+                                        <span>Mi perfil</span><i className="bi bi-chevron-right arrow"></i>
+                                    </a>
+                                </li>
+
                                 {user && ( // Solo mostrar si el usuario ha iniciado sesión
                                     <div>
                                         <li className="unu3">
