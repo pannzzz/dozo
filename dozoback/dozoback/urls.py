@@ -28,6 +28,8 @@ from Dozo.views import productos_mas_vendidos
 from Dozo.views import verify_current_password, change_password
 from Dozo.views import logout_all_sessions
 from Dozo.views import listar_pedidos_usuario
+from Dozo.views import send_reset_password_email
+from Dozo.views import reset_password
 
 
 urlpatterns = [
@@ -77,6 +79,8 @@ urlpatterns = [
     path("api/change-password/", change_password, name="change_password"),
 
     path('api/user/orders/', listar_pedidos_usuario, name='listar_pedidos_usuario'),
+    path('api/reset-password/', send_reset_password_email, name='reset-password'),
+    path('api/reset-password/<int:user_id>/', reset_password, name='reset_password'),
 ]
 if settings.DEBUG:  # Solo para desarrollo
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

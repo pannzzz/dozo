@@ -6,19 +6,22 @@ import '../styles/Login.css';
 import FooterComponent from '../components/FooterComponent';
 
 axios.defaults.withCredentials = true;
-const URL = 'http://localhost:8000/login/';
+const LOGIN_URL = 'http://localhost:8000/login/';
+const RESET_PASSWORD_URL = 'http://localhost:8000/api/reset-password/';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [showModal, setShowModal] = useState(false); // Estado para mostrar el modal
+    const [resetEmail, setResetEmail] = useState(''); // Correo para restablecer contraseña
+    const [resetMessage, setResetMessage] = useState('');
     const navigate = useNavigate(); // Hook para redirección
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validar campos vacíos
         if (!email || !password) {
             setShowError(true);
             setErrorMessage('Por favor, completa todos los campos.');
@@ -26,15 +29,13 @@ const Login = () => {
         }
 
         try {
-            // Obtener CSRF token (asegúrate de que Django lo incluya en las cookies)
             const csrftoken = document.cookie
                 .split('; ')
                 .find((row) => row.startsWith('csrftoken='))
                 ?.split('=')[1];
 
-            // Enviar solicitud al backend
             const response = await axios.post(
-                URL,
+                LOGIN_URL,
                 { email, password },
                 {
                     headers: {
@@ -44,14 +45,9 @@ const Login = () => {
                 }
             );
 
-            // Guardar información del usuario en localStorage
             localStorage.setItem('user', JSON.stringify(response.data.user));
-
-            // Redirigir al usuario en caso de éxito
-            console.log('Inicio de sesión exitoso:', response.data);
-            navigate('/'); // Cambia la ruta por la deseada
+            navigate('/');
         } catch (error) {
-            console.error('Error al iniciar sesión:', error);
             setShowError(true);
             setErrorMessage(
                 error.response?.data?.error || 'Error al iniciar sesión. Inténtalo de nuevo.'
@@ -59,8 +55,20 @@ const Login = () => {
         }
     };
 
+    const handleForgotPassword = async () => {
+        try {
+            const response = await axios.post(RESET_PASSWORD_URL, { email: resetEmail });
+            setResetMessage(response.data.message || 'Se ha enviado un enlace a tu correo.');
+        } catch (error) {
+            setResetMessage(
+                error.response?.data?.error ||
+                    'Hubo un error al enviar el correo. Verifica tu dirección de correo.'
+            );
+        }
+    };
+
     const handleRegisterRedirect = () => {
-        navigate('/register'); // Redirige a la página de registro
+        navigate('/register');
     };
 
     return (
@@ -93,18 +101,23 @@ const Login = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             <button type="submit" className="login-button">Iniciar sesión</button>
-                            <p className="forgot-password">¿Olvidaste tu contraseña?</p>
+                            <p
+                                className="forgot-password"
+                                onClick={() => setShowModal(true)}
+                            >
+                                ¿Olvidaste tu contraseña?
+                            </p>
                         </form>
                     </div>
                     <div className="separator"></div>
                     <div className="new-user-box">
                         <h3>Para quienes visitan por primera vez</h3>
                         <p>
-                        ¡Aquellos que se registren como <br />
-                        miembros les damos la bienvenida <br />
-                        a todos lo que vayan <br />
-                        a ser y seran <br />
-                        parte de Dozo!
+                            ¡Aquellos que se registren como <br />
+                            miembros les damos la bienvenida <br />
+                            a todos lo que vayan <br />
+                            a ser y serán <br />
+                            parte de Dozo!
                         </p>
                         <button className="new-user-button" onClick={handleRegisterRedirect}>
                             Registro de nuevos miembros
@@ -113,6 +126,31 @@ const Login = () => {
                 </div>
             </div>
             <FooterComponent />
+
+            {/* Modal para restablecer contraseña */}
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h3>Restablecer contraseña</h3>
+                        <p>Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
+                        <input
+                            type="email"
+                            placeholder="Correo electrónico"
+                            value={resetEmail}
+                            onChange={(e) => setResetEmail(e.target.value)}
+                        />
+                        <div className="modal-buttons">
+                            <button className="confirm-button" onClick={handleForgotPassword}>
+                                Enviar enlace
+                            </button>
+                            <button className="cancel-button" onClick={() => setShowModal(false)}>
+                                Cancelar
+                            </button>
+                        </div>
+                        {resetMessage && <p className="reset-message">{resetMessage}</p>}
+                    </div>
+                </div>
+            )}
         </>
     );
 };

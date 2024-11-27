@@ -288,9 +288,8 @@ def eliminar_producto(request, producto_id):
 # Mostrar categorías
 def mostrar_categoria(request):
     categorias = Categoria.objects.all()
-    return render(request, 'categorias/categoria_list.html', {
-        'categorias': categorias
-    })
+    return render(request, 'categorias/categoria_list.html', {'categorias': categorias})
+    
 
 # Crear una nueva categoría
 def crear_categoria(request):
@@ -1020,3 +1019,56 @@ def listar_pedidos_usuario(request):
         return JsonResponse({"pedidos": pedidos}, status=200)
     except Exception as e:
         return JsonResponse({"error": f"Error al obtener pedidos: {str(e)}"}, status=500)
+
+
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.core.mail import send_mail
+from django.contrib.auth import get_user_model
+import json
+
+User = get_user_model()
+
+@csrf_exempt
+def send_reset_password_email(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+        
+        try:
+            user = User.objects.get(email=email)
+            reset_url = f"http://localhost:3000/reset-password/{user.id}"  # URL para el frontend
+            send_mail(
+                subject="Restablecer contraseña",
+                message=f"Utiliza el siguiente enlace para restablecer tu contraseña: {reset_url}",
+                from_email="noreply@dozo.com",
+                recipient_list=[email],
+            )
+            return JsonResponse({"message": "Correo enviado con éxito.", "user_id": user.id}, status=200)
+        except User.DoesNotExist:
+            return JsonResponse({"error": "Correo no encontrado."}, status=404)
+    return JsonResponse({"error": "Método no permitido."}, status=405)
+
+
+@csrf_exempt
+def reset_password(request, user_id):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            new_password = data.get("new_password")
+
+            if not new_password:
+                return JsonResponse({"error": "La nueva contraseña es obligatoria."}, status=400)
+
+            user = User.objects.get(id=user_id)
+            user.set_password(new_password)
+            user.save()
+
+            return JsonResponse({"message": "Contraseña actualizada exitosamente."}, status=200)
+        except User.DoesNotExist:
+            return JsonResponse({"error": "Usuario no encontrado."}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    else:
+        return JsonResponse({"error": "Método no permitido."}, status=405)
+
